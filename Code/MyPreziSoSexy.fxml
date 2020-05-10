@@ -21,14 +21,14 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="763.0" prefWidth="1112.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="763.0" prefWidth="1112.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MyPreziSoSexyController">
    <children>
       <MenuBar>
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
               <MenuItem mnemonicParsing="false" text="Close" />
-                  <MenuItem mnemonicParsing="false" text="Open" />
+                  <MenuItem mnemonicParsing="false" onAction="#onOpenMenuItemPressed" text="Open" />
                   <MenuItem mnemonicParsing="false" text="Save" />
                   <MenuItem mnemonicParsing="false" text="Save as" />
             </items>
@@ -38,27 +38,6 @@
               <MenuItem mnemonicParsing="false" text="Delete" />
             </items>
           </Menu>
-            <Menu mnemonicParsing="false" text="Arrange">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Bring to front" />
-                  <MenuItem mnemonicParsing="false" text="Send to back" />
-                  <Menu mnemonicParsing="false" text="Align">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="Align left" />
-                        <MenuItem mnemonicParsing="false" text="Align right" />
-                        <MenuItem mnemonicParsing="false" text="Align center" />
-                        <MenuItem mnemonicParsing="false" text="Group" />
-                    </items>
-                  </Menu>
-              </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Insert">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Text" />
-                  <MenuItem mnemonicParsing="false" text="Image" />
-                  <MenuItem mnemonicParsing="false" text="Form" />
-              </items>
-            </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
               <MenuItem mnemonicParsing="false" text="About" />
@@ -68,13 +47,16 @@
       </MenuBar>
       <GridPane prefHeight="71.0" prefWidth="926.0">
         <columnConstraints>
-          <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="323.0" minWidth="10.0" prefWidth="211.0" />
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="0.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="133.0" minWidth="10.0" />
+          <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="323.0" minWidth="10.0" prefWidth="108.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="364.0" minWidth="0.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="127.0" minWidth="0.0" prefWidth="47.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="223.0" minWidth="10.0" prefWidth="158.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="127.0" minWidth="0.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="230.0" minWidth="10.0" prefWidth="177.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
@@ -85,23 +67,23 @@
             <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" prefWidth="60.0" GridPane.columnIndex="3" />
-            <Button mnemonicParsing="false" prefWidth="60.0" GridPane.columnIndex="4" />
-            <Button mnemonicParsing="false" prefWidth="60.0" GridPane.columnIndex="2" />
-            <Button mnemonicParsing="false" prefWidth="60.0" GridPane.columnIndex="1" />
+            <Button mnemonicParsing="false" prefWidth="60.0" GridPane.columnIndex="6" />
+            <Button mnemonicParsing="false" onAction="#onImageButtonPressed" prefWidth="60.0" GridPane.columnIndex="7" />
             <Button mnemonicParsing="false" prefWidth="60.0" GridPane.columnIndex="5" />
-            <Button mnemonicParsing="false" prefWidth="60.0" text="Add" />
-            <Label text="Add slide" GridPane.rowIndex="1">
+            <Button mnemonicParsing="false" prefWidth="60.0" GridPane.columnIndex="4" />
+            <Button mnemonicParsing="false" prefWidth="60.0" GridPane.columnIndex="8" />
+            <Button mnemonicParsing="false" onAction="#onAddButtonPressed" prefWidth="60.0" text="Add" GridPane.columnIndex="1" />
+            <Label text="Add node" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </Label>
-            <Label text="Table" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label text="Table" GridPane.columnIndex="4" GridPane.rowIndex="1">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </Label>
-            <Label text="Text" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Label text="Text" GridPane.columnIndex="5" GridPane.rowIndex="1">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
@@ -109,46 +91,58 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Shape" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <Label text="Shape" GridPane.columnIndex="6" GridPane.rowIndex="1">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </Label>
-            <Label text="Image" GridPane.columnIndex="4" GridPane.rowIndex="1">
+            <Label text="Image" GridPane.columnIndex="7" GridPane.rowIndex="1">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </Label>
-            <Label text="Crop" GridPane.columnIndex="5" GridPane.rowIndex="1">
+            <Label text="Crop" GridPane.columnIndex="8" GridPane.rowIndex="1">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </Label>
-            <ImageView fitHeight="15.0" fitWidth="15.0" GridPane.columnIndex="2">
+            <ImageView fitHeight="15.0" fitWidth="15.0" GridPane.columnIndex="5">
                <image>
                   <Image url="@../Rerfernece/icons/text.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="17.0" fitWidth="14.0" GridPane.columnIndex="5">
+            <ImageView fitHeight="17.0" fitWidth="14.0" GridPane.columnIndex="8">
                <image>
                   <Image url="@../Rerfernece/icons/crop.png" />
                </image>
             </ImageView>
-            <ImageView GridPane.columnIndex="4">
+            <ImageView GridPane.columnIndex="7">
                <image>
                   <Image url="@../Rerfernece/icons/image.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="16.0" fitWidth="15.0" GridPane.columnIndex="1">
+            <ImageView fitHeight="16.0" fitWidth="15.0" GridPane.columnIndex="4">
                <image>
                   <Image url="@../Rerfernece/icons/table.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="20.0" fitWidth="22.0" GridPane.columnIndex="3">
+            <ImageView fitHeight="20.0" fitWidth="22.0" GridPane.columnIndex="6">
                <image>
                   <Image url="@../Rerfernece/icons/icons8-triangle-24.png" />
                </image>
             </ImageView>
+            <Button mnemonicParsing="false" onAction="#onAddChildButtonPressed" prefWidth="60.0" text="Add" />
+            <Button mnemonicParsing="false" onAction="#onAddParentButtonPressed" prefWidth="60.0" text="Add" GridPane.columnIndex="2" />
+            <Label text="Add parent" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </Label>
+            <Label text="Add child" GridPane.rowIndex="1">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </Label>
          </children>
          <VBox.margin>
             <Insets left="5.0" right="5.0" top="5.0" />
@@ -168,7 +162,7 @@
                   </FlowPane>
                </content>
             </ScrollPane>
-            <Pane prefHeight="634.0" prefWidth="703.0" SplitPane.resizableWithParent="false" />
+            <Pane fx:id="pane" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="634.0" prefWidth="703.0" SplitPane.resizableWithParent="false" />
             <TabPane tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="Style">
