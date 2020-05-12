@@ -24,7 +24,7 @@ public class MyPreziSoSexyController {
 
     public void initialize() {
         System.out.println(pane.getId());
-        workspace = new MyPreziSoSexy(pane);
+        // workspace = new MyPreziSoSexy(pane);
         // stage = new Stage();
     }
 

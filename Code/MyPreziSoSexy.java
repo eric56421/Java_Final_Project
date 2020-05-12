@@ -42,33 +42,34 @@ public class MyPreziSoSexy {
         System.out.println("No such function");
         // myNodes.push(new MyNode(new Pane()));
         // MyNode p = myNodes.get(currMyNode.prev);
-
+        
         // for (int i = 0; i < p.nextLen; i++) {
-        //     if (p.next[i] == currMyNode.curr) {
-        //         p.next[i] = myNodes.size() - 1;
-        //         break;
-        //     }
-        // }
-        // currMyNode.prev = myNodes.size() - 1;
+            //     if (p.next[i] == currMyNode.curr) {
+                //         p.next[i] = myNodes.size() - 1;
+                //         break;
+                //     }
+                // }
+                // currMyNode.prev = myNodes.size() - 1;
+                
+                // myNodes.getLast().curr = myNodes.size() - 1;
+                // myNodes.getLast().prev = p.curr;
+                // myNodes.getLast().next[0] = currMyNode.curr;
+                
+                // currMyNode = myNodes.getLast();
+            }
+            
+    public void addMyNode() {
+                System.out.println("No such function");
+                // myNodes.push(new MyNode(new Pane()));
+        // MyNode p = myNodes.get(currMyNode.prev);
 
-        // myNodes.getLast().curr = myNodes.size() - 1;
-        // myNodes.getLast().prev = p.curr;
-        // myNodes.getLast().next[0] = currMyNode.curr;
+        // p.next[currMyNode.nextLen] = myNodes.size() - 1;// set currMyNode's prevMyNode's next Mynode
+        // p.nextLen++;
+
+        // myNodes.getLast().curr = myNodes.size() - 1;// set prevMyNode's nextMyNode's curr
+        // myNodes.getLast().prev = p.curr;// set prevMyNode's nextMyNode's prev Mynode
 
         // currMyNode = myNodes.getLast();
-    }
-
-    public void addMyNode() {
-        myNodes.push(new MyNode(new Pane()));
-        MyNode p = myNodes.get(currMyNode.prev);
-
-        p.next[currMyNode.nextLen] = myNodes.size() - 1;// set currMyNode's prevMyNode's next Mynode
-        p.nextLen++;
-
-        myNodes.getLast().curr = myNodes.size() - 1;// set prevMyNode's nextMyNode's curr
-        myNodes.getLast().prev = p.curr;// set prevMyNode's nextMyNode's prev Mynode
-
-        currMyNode = myNodes.getLast();
 
     }
 
