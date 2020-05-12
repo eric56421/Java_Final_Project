@@ -14,7 +14,6 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        // create a TipCalculator object and call its start method
         launch(args);
     }
 

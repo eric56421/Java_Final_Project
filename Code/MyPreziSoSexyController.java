@@ -3,7 +3,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.FileChooser.ExtensionFilter;;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 import javafx.scene.layout.Pane;
 import javafx.event.*;
@@ -21,6 +21,7 @@ public class MyPreziSoSexyController {
 
     MyPreziSoSexy workspace;
 
+
     public void initialize() {
         System.out.println(pane.getId());
         workspace = new MyPreziSoSexy(pane);
@@ -29,6 +30,7 @@ public class MyPreziSoSexyController {
 
     @FXML
     void onDragDropped(DragEvent event) throws FileNotFoundException {
+        // should be update to Widgets
         List<File> files = event.getDragboard().getFiles();
         for (File f : files) {
             try {
@@ -57,26 +59,26 @@ public class MyPreziSoSexyController {
 
 
     @FXML
-    void onAddButtonPressed(ActionEvent event) {
-        if (workspace.isHead() != true) {
+    void onAddNodeButtonPressed(ActionEvent event) {
+        if (workspace.isRootMyNode() != true) {
             workspace.addMyNode();
         }
-        System.out.println(workspace.currentMyNode().curr);
+        // System.out.println(workspace.currentMyNode().curr);
         
     }
     
     @FXML
     void onAddChildButtonPressed(ActionEvent event) {
         workspace.addChildMyNode();
-        System.out.println(workspace.currentMyNode().curr);
+        // System.out.println(workspace.currentMyNode().curr);
     }
     
     @FXML
     void onAddParentButtonPressed(ActionEvent event) {
-        if (workspace.isHead() != true) {
+        if (workspace.isRootMyNode() != true) {
             workspace.addParentMyNode();
         }
-        System.out.println(workspace.currentMyNode().curr);
+        // System.out.println(workspace.currentMyNode().curr);
     }
 
 

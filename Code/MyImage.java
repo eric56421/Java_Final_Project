@@ -3,7 +3,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.image.ImageView;
 
 public class MyImage {
-    Image image;
+    // Image image;
 
     MyImage(Image image, Pane pane) {
         ImageView imageView = new ImageView();

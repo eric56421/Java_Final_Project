@@ -3,48 +3,59 @@ import javafx.scene.layout.Pane;
 import javafx.scene.control.SplitPane;
 
 public class MyPreziSoSexy {
-    private LinkedList<MyNode> myNodes = new LinkedList<MyNode>();
-    private MyNode currMyNode;
+    private MyNode rootMyNode;
 
-    private Pane pane;
+    // need to add a function that switch currMyNode;
+    private MyNode currMyNode; 
+    // private Pane pane;
+
 
     public MyPreziSoSexy(Pane p) {
-        this.pane = p;
-        myNodes.push(new MyNode(pane));
-        currMyNode = myNodes.getFirst();
-        currMyNode.prev = -1;
-        currMyNode.curr = 0;
+        rootMyNode = new MyNode(p);
+        // this.pane = p;
+        // myNodes.push(new MyNode(pane));
+        // currMyNode = myNodes.getFirst();
+        // currMyNode.prev = -1;
+        // currMyNode.curr = 0;
     }
 
     public void addChildMyNode() {
-        myNodes.push(new MyNode(new Pane()));
+        Pane p = new Pane();    // this p should have some default widgets on it.
+        currMyNode.addChildNode(p);
 
-        currMyNode.next[currMyNode.nextLen] = myNodes.size() - 1;// set currMyNode's next Mynode
-        currMyNode.nextLen++;
+        // could decide whether add one childNode and switch to it at same time.
 
-        myNodes.getLast().curr = myNodes.size() - 1;// set nextMyNode's curr
-        myNodes.getLast().prev = currMyNode.curr;// set nextMyNode's prev Mynode
 
-        currMyNode = myNodes.getLast();
+
+        // myNodes.push(new MyNode(new Pane()));
+
+        // currMyNode.next[currMyNode.nextLen] = myNodes.size() - 1;// set currMyNode's next Mynode
+        // currMyNode.nextLen++;
+
+        // myNodes.getLast().curr = myNodes.size() - 1;// set nextMyNode's curr
+        // myNodes.getLast().prev = currMyNode.curr;// set nextMyNode's prev Mynode
+
+        // currMyNode = myNodes.getLast();
     }
-
+    
     public void addParentMyNode() {
-        myNodes.push(new MyNode(new Pane()));
-        MyNode p = myNodes.get(currMyNode.prev);
+        System.out.println("No such function");
+        // myNodes.push(new MyNode(new Pane()));
+        // MyNode p = myNodes.get(currMyNode.prev);
 
-        for (int i = 0; i < p.nextLen; i++) {
-            if (p.next[i] == currMyNode.curr) {
-                p.next[i] = myNodes.size() - 1;
-                break;
-            }
-        }
-        currMyNode.prev = myNodes.size() - 1;
+        // for (int i = 0; i < p.nextLen; i++) {
+        //     if (p.next[i] == currMyNode.curr) {
+        //         p.next[i] = myNodes.size() - 1;
+        //         break;
+        //     }
+        // }
+        // currMyNode.prev = myNodes.size() - 1;
 
-        myNodes.getLast().curr = myNodes.size() - 1;
-        myNodes.getLast().prev = p.curr;
-        myNodes.getLast().next[0] = currMyNode.curr;
+        // myNodes.getLast().curr = myNodes.size() - 1;
+        // myNodes.getLast().prev = p.curr;
+        // myNodes.getLast().next[0] = currMyNode.curr;
 
-        currMyNode = myNodes.getLast();
+        // currMyNode = myNodes.getLast();
     }
 
     public void addMyNode() {
@@ -65,8 +76,8 @@ public class MyPreziSoSexy {
 
     }
 
-    public boolean isHead() {
-        if (currMyNode.prev < 0)
+    public boolean isRootMyNode() {
+        if (currMyNode == rootMyNode)
             return true;
         return false;
     }
