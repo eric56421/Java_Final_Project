@@ -48,8 +48,6 @@
       <GridPane prefHeight="71.0" prefWidth="926.0">
         <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="133.0" minWidth="10.0" />
           <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="323.0" minWidth="10.0" prefWidth="108.0" />
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="364.0" minWidth="0.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
@@ -67,23 +65,23 @@
             <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" prefWidth="60.0" GridPane.columnIndex="6" />
-            <Button mnemonicParsing="false" onAction="#onImageButtonPressed" prefWidth="60.0" GridPane.columnIndex="7" />
-            <Button mnemonicParsing="false" prefWidth="60.0" GridPane.columnIndex="5" />
             <Button mnemonicParsing="false" prefWidth="60.0" GridPane.columnIndex="4" />
-            <Button mnemonicParsing="false" prefWidth="60.0" GridPane.columnIndex="8" />
-            <Button mnemonicParsing="false" onAction="#onAddNodeButtonPressed" prefWidth="60.0" text="Add" GridPane.columnIndex="1" />
-            <Label text="Add node" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button mnemonicParsing="false" onMouseReleased="#onImageButtonMouseReleased" prefWidth="60.0" GridPane.columnIndex="5" />
+            <Button mnemonicParsing="false" prefWidth="60.0" GridPane.columnIndex="3" />
+            <Button mnemonicParsing="false" prefWidth="60.0" GridPane.columnIndex="2" />
+            <Button mnemonicParsing="false" prefWidth="60.0" GridPane.columnIndex="6" />
+            <Button mnemonicParsing="false" onMouseReleased="#onAddNodeButtonReleased" prefWidth="60.0" />
+            <Label text="Add node" GridPane.rowIndex="1">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </Label>
-            <Label text="Table" GridPane.columnIndex="4" GridPane.rowIndex="1">
+            <Label text="Table" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </Label>
-            <Label text="Text" GridPane.columnIndex="5" GridPane.rowIndex="1">
+            <Label text="Text" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
@@ -91,58 +89,51 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Shape" GridPane.columnIndex="6" GridPane.rowIndex="1">
+            <Label text="Shape" GridPane.columnIndex="4" GridPane.rowIndex="1">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </Label>
-            <Label text="Image" GridPane.columnIndex="7" GridPane.rowIndex="1">
+            <Label text="Image" GridPane.columnIndex="5" GridPane.rowIndex="1">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </Label>
-            <Label text="Crop" GridPane.columnIndex="8" GridPane.rowIndex="1">
+            <Label text="Crop" GridPane.columnIndex="6" GridPane.rowIndex="1">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </Label>
-            <ImageView fitHeight="15.0" fitWidth="15.0" GridPane.columnIndex="5">
+            <ImageView fitHeight="15.0" fitWidth="15.0" GridPane.columnIndex="3">
                <image>
                   <Image url="@../Rerfernece/icons/text.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="17.0" fitWidth="14.0" GridPane.columnIndex="8">
+            <ImageView fitHeight="17.0" fitWidth="14.0" GridPane.columnIndex="6">
                <image>
                   <Image url="@../Rerfernece/icons/crop.png" />
                </image>
             </ImageView>
-            <ImageView GridPane.columnIndex="7">
+            <ImageView onMouseReleased="#onImageButtonMouseReleased" GridPane.columnIndex="5">
                <image>
                   <Image url="@../Rerfernece/icons/image.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="16.0" fitWidth="15.0" GridPane.columnIndex="4">
+            <ImageView fitHeight="16.0" fitWidth="15.0" GridPane.columnIndex="2">
                <image>
                   <Image url="@../Rerfernece/icons/table.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="20.0" fitWidth="22.0" GridPane.columnIndex="6">
+            <ImageView fitHeight="20.0" fitWidth="22.0" GridPane.columnIndex="4">
                <image>
                   <Image url="@../Rerfernece/icons/icons8-triangle-24.png" />
                </image>
             </ImageView>
-            <Button mnemonicParsing="false" onAction="#onAddChildButtonPressed" prefWidth="60.0" text="Add" />
-            <Button mnemonicParsing="false" onAction="#onAddParentButtonPressed" prefWidth="60.0" text="Add" GridPane.columnIndex="2" />
-            <Label text="Add parent" GridPane.columnIndex="2" GridPane.rowIndex="1">
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </Label>
-            <Label text="Add child" GridPane.rowIndex="1">
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </Label>
+            <ImageView fitHeight="16.0" fitWidth="15.0" onMouseReleased="#onAddNodeButtonReleased">
+               <image>
+                  <Image url="@../Rerfernece/icons/add1.png" />
+               </image>
+            </ImageView>
          </children>
          <VBox.margin>
             <Insets left="5.0" right="5.0" top="5.0" />
@@ -162,7 +153,7 @@
                   </FlowPane>
                </content>
             </ScrollPane>
-            <Pane fx:id="pane" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="634.0" prefWidth="703.0" SplitPane.resizableWithParent="false" />
+            <Pane fx:id="pane" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="634.0" prefWidth="703.0" />
             <TabPane tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="Style">
