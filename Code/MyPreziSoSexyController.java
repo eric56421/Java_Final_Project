@@ -14,7 +14,6 @@ import java.io.*;
 
 public class MyPreziSoSexyController {
 
-    // Stage stage;
     @FXML
     private Pane pane;
 
@@ -24,7 +23,6 @@ public class MyPreziSoSexyController {
     public void initialize() {
         System.out.println(pane.getId());
         workspace = new MyPreziSoSexy(pane);
-        // stage = new Stage();
     }
 
     @FXML
@@ -33,19 +31,10 @@ public class MyPreziSoSexyController {
         List<File> files = event.getDragboard().getFiles();
         for (File f : files) {
             try {
-                workspace.currentMyNode().addMyImage(new Image(new FileInputStream(f)));
+                workspace.currentMyNode().addMyImage(new Image(new FileInputStream(f)),event.getX(), event.getY());
             } catch (Exception e) {
 
             }
-            // String t = f.getName();
-            // String sub = t.substring(t.lastIndexOf("."));
-            // if (sub.compareTo(".jpg") == 0 || sub.compareTo(".png") == 0 ||
-            // sub.compareTo(".bmp") == 0
-            // || sub.compareTo(".gif") == 0) {
-            // currentMyNode().addMyImage(new Image(new FileInputStream(f)));
-            // } else if (sub.compareTo(".mp4") == 0) {
-            // addMyVideo(video);
-            // }
         }
     }
 
