@@ -4,7 +4,6 @@ import javafx.scene.control.*;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
-import javafx.scene.layout.FlowPane;
 
 public class MyNode{
     private ArrayList<MyImage> myImages; // should be replaced by MyWidget

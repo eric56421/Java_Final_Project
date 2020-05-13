@@ -1,6 +1,5 @@
 import java.util.*;
 
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
@@ -25,10 +24,6 @@ public class MyPreziSoSexy {
 
         // could decide whether add one childNode and switch to it at same time.
     }
-
-    // public void addParentMyNode() {
-    //     System.out.println("No such function");
-    // }
 
     // public void addMyNode() {
     //     currMyNode.myIndex.addThumbnail();

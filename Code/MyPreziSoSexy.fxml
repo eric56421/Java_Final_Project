@@ -142,38 +142,41 @@
             <Insets left="5.0" right="5.0" top="5.0" />
          </padding>
       </GridPane>
-      <SplitPane dividerPositions="0.17256162915326903, 0.8113612004287245" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+      <SplitPane dividerPositions="0.17297297297297298, 0.8018018018018018" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
          <items>
-            <ScrollPane prefHeight="373.0" prefWidth="306.0" SplitPane.resizableWithParent="false">
+            <ScrollPane fx:id="scrollPane" prefHeight="626.0" prefWidth="193.0" SplitPane.resizableWithParent="false">
                <content>
-                  <FlowPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" orientation="VERTICAL">
-                     <children>
-                        <ImageView fitHeight="150.0" fitWidth="149.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
+                  <FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="631.0" prefWidth="172.0">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
                   </FlowPane>
                </content>
             </ScrollPane>
-            <Pane fx:id="pane" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="634.0" prefWidth="703.0" />
+            <Pane fx:id="pane" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="634.0" prefWidth="423.0" />
             <TabPane tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="Style">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    <AnchorPane maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                   </content>
                 </Tab>
                 <Tab text="Text">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    <AnchorPane maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                   </content>
                 </Tab>
                   <Tab text="Arrange">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                      <AnchorPane maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                     </content>
                   </Tab>
               </tabs>
             </TabPane>
          </items>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
       </SplitPane>
       <ButtonBar prefHeight="49.0" prefWidth="960.0">
         <buttons>
