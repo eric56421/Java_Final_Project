@@ -72,7 +72,7 @@
             <Button mnemonicParsing="false" prefWidth="60.0" GridPane.columnIndex="5" />
             <Button mnemonicParsing="false" prefWidth="60.0" GridPane.columnIndex="4" />
             <Button mnemonicParsing="false" prefWidth="60.0" GridPane.columnIndex="8" />
-            <Button mnemonicParsing="false" onAction="#onAddButtonPressed" prefWidth="60.0" text="Add" GridPane.columnIndex="1" />
+            <Button mnemonicParsing="false" onAction="#onAddNodeButtonPressed" prefWidth="60.0" text="Add" GridPane.columnIndex="1" />
             <Label text="Add node" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

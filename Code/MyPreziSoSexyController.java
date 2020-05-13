@@ -4,14 +4,13 @@ import javafx.scene.input.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
-
 import javafx.scene.layout.Pane;
 import javafx.event.*;
+import javafx.scene.image.*;
 
 import java.util.List;
 import java.io.*;
 
-import javafx.scene.image.*;
 
 public class MyPreziSoSexyController {
 
@@ -24,7 +23,7 @@ public class MyPreziSoSexyController {
 
     public void initialize() {
         System.out.println(pane.getId());
-        // workspace = new MyPreziSoSexy(pane);
+        workspace = new MyPreziSoSexy(pane);
         // stage = new Stage();
     }
 
