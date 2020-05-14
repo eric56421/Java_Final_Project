@@ -20,6 +20,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 
 <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="763.0" prefWidth="1112.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MyPreziSoSexyController">
    <children>
@@ -162,7 +163,17 @@
                   </FlowPane>
                </content>
             </ScrollPane>
-            <Pane fx:id="pane" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="634.0" prefWidth="703.0" SplitPane.resizableWithParent="false" />
+            <Pane fx:id="pane" onDragDropped="#onDragDropped" onDragOver="#onDragOver" onZoom="#testImgOnZoom" prefHeight="634.0" prefWidth="703.0" SplitPane.resizableWithParent="false">
+               <children>
+                  <ImageView fx:id="testImage" fitHeight="150.0" fitWidth="200.0" layoutX="152.0" layoutY="66.0" onMouseEntered="#testImgMouseEntered" onZoom="#testImgOnZoom" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Rerfernece/icons/transparent.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="testLabel" layoutX="196.0" layoutY="298.0" text="Label" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="200.0" layoutX="395.0" layoutY="213.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+                  <Button layoutX="156.0" layoutY="384.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="13.0" prefWidth="15.0" />
+               </children></Pane>
             <TabPane tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="Style">

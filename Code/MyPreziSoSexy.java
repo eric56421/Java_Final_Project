@@ -1,5 +1,8 @@
+import javafx.scene.shape.Rectangle;
+
 import java.util.*;
 import javafx.scene.layout.Pane;
+import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 
 public class MyPreziSoSexy {
@@ -12,6 +15,7 @@ public class MyPreziSoSexy {
 
     public MyPreziSoSexy(Pane p) {
         rootMyNode = new MyNode(p);
+        currMyNode = rootMyNode;
         // this.pane = p;
         // myNodes.push(new MyNode(pane));
         // currMyNode = myNodes.getFirst();
@@ -87,4 +91,23 @@ public class MyPreziSoSexy {
         return currMyNode;
     }
 
+    public void addWidget(Rectangle node) {
+        currMyNode.addWidget(node);
+    }
+
+    public void fuckingAddToo() {
+        try{
+            currMyNode.fuckingAdd();
+        }
+        catch (Exception exception) {
+            System.out.println("hi in sexy class");
+            printFullTrace(exception);
+            System.out.println(exception.getCause());
+        }
+    }
+
+    static void printFullTrace(Throwable throwable){
+        for(StackTraceElement element : throwable.getStackTrace())
+            System.out.println(element);
+    }
 }

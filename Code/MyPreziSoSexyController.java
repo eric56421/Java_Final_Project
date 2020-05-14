@@ -5,6 +5,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import javafx.event.*;
 import javafx.scene.image.*;
 
@@ -17,6 +18,12 @@ public class MyPreziSoSexyController {
     // Stage stage;
     @FXML
     private Pane pane;
+    @FXML
+    private Label testLabel;
+    @FXML
+    private ImageView testImage;
+
+    private int cnt=0;
 
     MyPreziSoSexy workspace;
 
@@ -94,5 +101,25 @@ public class MyPreziSoSexyController {
         if (f != null) {
             workspace.currentMyNode().addMyImage(new Image(new FileInputStream(f)));
         }
+    }
+
+    @FXML
+    void testImgOnZoom(ZoomEvent event) {
+        testLabel.setText("hihi" + cnt);
+    }
+
+    @FXML
+    void testImgMouseEntered(MouseEvent event) {
+        testLabel.setText("entered");
+        Rectangle testRectangle = new Rectangle(testImage.getLayoutX(), testImage.getLayoutY(), testImage.getFitWidth(), testImage.getFitHeight());
+        // try{
+        //     workspace.fuckingAddToo();
+        // }
+        // catch (Exception exception) {
+        //     System.out.println("hi in handler");
+        //     System.out.println(exception.getCause());
+        // }
+        workspace.addWidget(testRectangle);
+        // MyFrame testMyFrame = new MyFrame(testImage.getLayoutX(), testImage.getLayoutY(), testImage.getFitWidth(), testImage.getFitHeight());
     }
 }
