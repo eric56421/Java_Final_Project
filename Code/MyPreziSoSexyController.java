@@ -47,36 +47,8 @@ public class MyPreziSoSexyController {
 
     @FXML
     void onAddNodeButtonReleased(MouseEvent event) {
-        // if (workspace.isRootMyNode() != true) {
-        // workspace.addChildMyNode();
-        // }
-
         workspace.addChildMyNode();
-
     }
-
-    // @FXML
-    // void onAddNodeButtonPressed(ActionEvent event) {
-    // if (workspace.isRootMyNode() != true) {
-    // workspace.addMyNode();
-    // }
-    // // System.out.println(workspace.currentMyNode().curr);
-
-    // }
-
-    // @FXML
-    // void onAddChildButtonPressed(ActionEvent event) {
-    // workspace.addChildMyNode();
-    // System.out.println(workspace.currentMyNode().curr);
-    // }
-
-    // @FXML
-    // void onAddParentButtonPressed(ActionEvent event) {
-    // if (workspace.isRootMyNode() != true) {
-    // workspace.addParentMyNode();
-    // }
-    // // System.out.println(workspace.currentMyNode().curr);
-    // }
 
     @FXML
     void onImageButtonMouseReleased(MouseEvent event) throws FileNotFoundException {

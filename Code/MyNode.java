@@ -11,6 +11,7 @@ public class MyNode{
     private Pane pane;
     public LinkedList<MyNode> childNodes;
     public MyNode parentNode;
+    public ImageView thumbnail;
     public MyIndex myIndex;
 
     public MyNode(Pane p, ScrollPane sp){
@@ -23,7 +24,7 @@ public class MyNode{
 
     public void addChildNode(Pane p) { // need to gave a pane with a shape
         childNodes.add(new MyNode(p, myIndex.scrollPane));
-        
+        myIndex.addThumbnail(new Image("beach.jpg"));
     }
 
     public void addMyImage(Image i, double x, double y) {

@@ -18,8 +18,9 @@ public class MyIndex extends ScrollPane {
         imageViews = new ArrayList<ImageView>();
     }
 
-    public void addThumbnail() {
-        imageViews.add(new ImageView("beach.jpg"));
+    public void addThumbnail(Image i) {
+        imageViews.add(new ImageView(i));
         scrollPane.setContent(imageViews.get(imageViews.size() - 1));
+        System.out.println(scrollPane.getContent());
     }
 }

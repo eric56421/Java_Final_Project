@@ -3,6 +3,9 @@ import java.util.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 public class MyPreziSoSexy {
     private MyNode rootMyNode;
@@ -11,27 +14,30 @@ public class MyPreziSoSexy {
     private MyNode currMyNode;
     // private Pane pane;
 
-    //all parametors are come from FXML
+    // all parametors are come from FXML
     public MyPreziSoSexy(Pane p, ScrollPane sp) {
-        rootMyNode = new MyNode(p,sp);
+        rootMyNode = new MyNode(p, sp);
         currMyNode = rootMyNode;
     }
 
     public void addChildMyNode() {
         Pane p = new Pane(); // this p should have some default widgets on it.
         currMyNode.addChildNode(p);
-        currMyNode.myIndex.addThumbnail();
+        currMyNode.myIndex.imageViews.get(currMyNode.myIndex.imageViews.size() - 1).
+        setOnMouseClicked(event -> {
+            gotoMyChildNode(event);
+        });
 
         // could decide whether add one childNode and switch to it at same time.
     }
 
-    // public void addMyNode() {
-    //     currMyNode.myIndex.addThumbnail();
-    //     currMyNode.parentNode.addChildNode(new Pane());// go to current node's parent and add a child        
-    // }
-
-    public void gotoMyNode(int n) {
-
+    public void gotoMyChildNode(MouseEvent me) {
+        for (MyNode n:currMyNode.childNodes) {
+            if (n.thumbnail == me.getSource()) {
+                currMyNode = n;
+                break;
+            }
+        }
     }
 
     public boolean isRootMyNode() {
