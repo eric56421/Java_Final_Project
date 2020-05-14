@@ -16,7 +16,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -143,17 +142,22 @@
             <Insets left="5.0" right="5.0" top="5.0" />
          </padding>
       </GridPane>
-      <SplitPane fx:id="splitPane" dividerPositions="0.1733212341197822, 0.822141560798548" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+      <SplitPane dividerPositions="0.17604355716878403, 0.822141560798548" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
          <items>
-            <ScrollPane fx:id="scrollPane" prefHeight="626.0" prefWidth="193.0" SplitPane.resizableWithParent="false">
-               <content>
-                  <FlowPane minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="631.0" prefWidth="172.0">
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </FlowPane>
-               </content>
-            </ScrollPane>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <ButtonBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="198.0">
+                    <buttons>
+                      <Button minWidth="59.0" mnemonicParsing="false" onAction="#onButtonBackPressed" prefHeight="23.0" prefWidth="75.0" text="Back" />
+                    </buttons>
+                  </ButtonBar>
+                  <ScrollPane fx:id="scrollPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="591.0" prefWidth="191.0">
+                     <content>
+                        <VBox fx:id="vBox" fillWidth="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+                     </content>
+                  </ScrollPane>
+               </children>
+            </VBox>
             <BorderPane fx:id="middleBorderPane" prefHeight="200.0" prefWidth="200.0">
                <center>
                   <Pane fx:id="pane" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="618.0" prefWidth="377.0" BorderPane.alignment="CENTER" />

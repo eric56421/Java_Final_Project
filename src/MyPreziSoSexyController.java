@@ -9,31 +9,36 @@ import javafx.scene.layout.FlowPane;
 import javafx.event.*;
 import javafx.scene.image.*;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 
 import java.util.List;
 import java.io.*;
 
 public class MyPreziSoSexyController {
 
-    @FXML
-    private SplitPane splitPane;
+    // @FXML
+    // private SplitPane splitPane;
 
     @FXML
     private ScrollPane scrollPane;
 
     @FXML
-    private BorderPane middleBorderPane;
-
-    @FXML
     private Pane pane;
+    
+    @FXML
+    private VBox vBox;
+    
+    @FXML
+    private BorderPane middleBorderPane;
 
     @FXML
     private BorderPane rightBorderPane;
 
+    
     MyPreziSoSexy workspace;
 
     public void initialize() {
-        workspace = new MyPreziSoSexy(pane, scrollPane);
+        workspace = new MyPreziSoSexy(pane, vBox, middleBorderPane, rightBorderPane, scrollPane);
     }
 
     @FXML
@@ -74,6 +79,11 @@ public class MyPreziSoSexyController {
                 System.out.println("Can't load image.");
             }
         }
+    }
+
+    @FXML
+    void onButtonBackPressed(ActionEvent event) {
+        workspace.gotoMyParentNode();
     }
 
     @FXML
