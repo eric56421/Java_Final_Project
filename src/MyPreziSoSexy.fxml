@@ -107,32 +107,32 @@
             </Label>
             <ImageView fitHeight="15.0" fitWidth="15.0" GridPane.columnIndex="3">
                <image>
-                  <Image url="@../Rerfernece/icons/text.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="17.0" fitWidth="14.0" GridPane.columnIndex="6">
-               <image>
-                  <Image url="@../Rerfernece/icons/crop.png" />
-               </image>
-            </ImageView>
-            <ImageView onMouseReleased="#onImageButtonMouseReleased" GridPane.columnIndex="5">
-               <image>
-                  <Image url="@../Rerfernece/icons/image.png" />
+                  <Image url="@../img/text.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="16.0" fitWidth="15.0" GridPane.columnIndex="2">
                <image>
-                  <Image url="@../Rerfernece/icons/table.png" />
+                  <Image url="@../img/table.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="20.0" fitWidth="22.0" GridPane.columnIndex="4">
                <image>
-                  <Image url="@../Rerfernece/icons/icons8-triangle-24.png" />
+                  <Image url="@../img/icons8-triangle-24.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="16.0" fitWidth="15.0" onMouseReleased="#onAddNodeButtonReleased">
                <image>
-                  <Image url="@../Rerfernece/icons/add1.png" />
+                  <Image url="@../img/add1.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="20.0" fitWidth="22.0" GridPane.columnIndex="6">
+               <image>
+                  <Image url="@../img/crop.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="20.0" fitWidth="22.0" GridPane.columnIndex="5">
+               <image>
+                  <Image url="@../img/image.png" />
                </image>
             </ImageView>
          </children>

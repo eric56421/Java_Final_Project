@@ -26,9 +26,9 @@ public class MyNode{
         flowPane = new FlowPane();
 
         // need to put screenshot here
-        thumbnail = new ImageView("test.jpg");
-        thumbnail.setPreserveRatio(true);
-        thumbnail.setFitHeight(scrollPane.getPrefWidth());
+        // thumbnail = new ImageView("../img/beach.jpg");
+        // thumbnail.setPreserveRatio(true);
+        // thumbnail.setFitHeight(scrollPane.getPrefWidth());
         // myIndex = new MyIndex(sp);
     }
 
