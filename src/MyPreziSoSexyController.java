@@ -8,6 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.FlowPane;
 import javafx.event.*;
 import javafx.scene.image.*;
+import javafx.scene.layout.BorderPane;
 
 import java.util.List;
 import java.io.*;
@@ -15,9 +16,19 @@ import java.io.*;
 public class MyPreziSoSexyController {
 
     @FXML
-    private Pane pane;
+    private SplitPane splitPane;
+
     @FXML
     private ScrollPane scrollPane;
+
+    @FXML
+    private BorderPane middleBorderPane;
+
+    @FXML
+    private Pane pane;
+
+    @FXML
+    private BorderPane rightBorderPane;
 
     MyPreziSoSexy workspace;
 

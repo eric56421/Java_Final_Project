@@ -12,7 +12,6 @@ public class MyPreziSoSexy {
 
     // need to add a function that switch currMyNode;
     private MyNode currMyNode;
-    // private Pane pane;
 
     // all parametors are come from FXML
     public MyPreziSoSexy(Pane p, ScrollPane sp) {
@@ -23,20 +22,17 @@ public class MyPreziSoSexy {
     public void addChildMyNode() {
         Pane p = new Pane(); // this p should have some default widgets on it.
         currMyNode.addChildNode(p);
-        currMyNode.myIndex.imageViews.get(currMyNode.myIndex.imageViews.size() - 1).
-        setOnMouseClicked(event -> {
-            gotoMyChildNode(event);
-        });
 
-        // could decide whether add one childNode and switch to it at same time.
+        currMyNode.childNodes.getLast().thumbnail.setOnMouseClicked(event->gotoMyChildNode(event));
     }
 
     public void gotoMyChildNode(MouseEvent me) {
-        for (MyNode n:currMyNode.childNodes) {
+        for (MyNode n : currMyNode.childNodes) {
             if (n.thumbnail == me.getSource()) {
                 currMyNode = n;
                 break;
             }
+            System.out.println(currMyNode.toString());
         }
     }
 
