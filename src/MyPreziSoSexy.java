@@ -14,7 +14,7 @@ public class MyPreziSoSexy {
     private MyNode rootMyNode;
 
     // need to add a function that switch currMyNode;
-    private MyNode currMyNode;
+    private MyNode currMyNode, prevMyNode;
 
     public BorderPane middleBorderPane, rightBorderPane;
     public ScrollPane scrollPane;
@@ -45,6 +45,7 @@ public class MyPreziSoSexy {
         for (MyNode n : currMyNode.childNodes) {
             if (n.thumbnail == me.getSource()) {
                 vBox.getChildren().remove(0);
+                prevMyNode = currMyNode;
                 currMyNode = n;
                 vBox.getChildren().addAll(currMyNode.flowPane);
                 scrollPane.setContent(vBox);
@@ -56,7 +57,9 @@ public class MyPreziSoSexy {
     }
 
     public void gotoMyParentNode() {
-        // vBox.getChildren().remove(0);
+        vBox.getChildren().remove(0);
+        vBox.getChildren().addAll(prevMyNode.flowPane);
+        currMyNode = prevMyNode;
     }
 
     public boolean isRootMyNode() {
