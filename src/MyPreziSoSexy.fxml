@@ -129,7 +129,7 @@
                   <Image url="@../img/crop.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="20.0" fitWidth="22.0" GridPane.columnIndex="5">
+            <ImageView fitHeight="20.0" fitWidth="22.0" onMouseReleased="#onImageButtonMouseReleased" GridPane.columnIndex="5">
                <image>
                   <Image url="@../img/image.png" />
                </image>
@@ -144,14 +144,14 @@
       </GridPane>
       <SplitPane dividerPositions="0.17604355716878403, 0.822141560798548" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
          <items>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox prefHeight="200.0" prefWidth="100.0" SplitPane.resizableWithParent="false">
                <children>
                   <ButtonBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="198.0">
                     <buttons>
                       <Button minWidth="59.0" mnemonicParsing="false" onAction="#onButtonBackPressed" prefHeight="23.0" prefWidth="75.0" text="Back" />
                     </buttons>
                   </ButtonBar>
-                  <ScrollPane fx:id="scrollPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="591.0" prefWidth="191.0">
+                  <ScrollPane fx:id="scrollPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                      <content>
                         <VBox fx:id="vBox" fillWidth="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
                      </content>
