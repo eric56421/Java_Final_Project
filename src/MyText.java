@@ -7,8 +7,8 @@ public class MyText {
         textArea = new TextArea();
     }
 
-    public setFont(){
-
+    public void setFont(){
+        
     }
     
 }
