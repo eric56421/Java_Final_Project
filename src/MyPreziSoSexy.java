@@ -6,6 +6,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Region;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.ButtonBar;
@@ -46,8 +47,8 @@ public class MyPreziSoSexy {
         Pane p = new Pane();
         // p.setClip(middleBoRectangleCenterClip);
         // p.layoutBoundsProperty().addListener((ov, oldValue, newValue) -> {
-        //     middleBoRectangleCenterClip.setWidth(newValue.getWidth());
-        //     middleBoRectangleCenterClip.setHeight(newValue.getHeight());
+        // middleBoRectangleCenterClip.setWidth(newValue.getWidth());
+        // middleBoRectangleCenterClip.setHeight(newValue.getHeight());
         // });
 
         addPaneAllListeners(p);
@@ -61,6 +62,7 @@ public class MyPreziSoSexy {
         vBox.getChildren().addAll(currMyNode.flowPane);
         middleBorderPane.setCenter(currMyNode.pane);
         scrollPane.setContent(vBox);
+        clipChildren(middleBorderPane);
     }
 
     public void setupRootPane(Pane rp) {
@@ -83,6 +85,7 @@ public class MyPreziSoSexy {
 
     double mouseAnchorX = 0, mouseAnchorY = 0;
     double translateAnchorX = 0, translateAnchorY = 0;
+
     /** Add all event listeners for pane in MyNode */
     public void addPaneAllListeners(Pane p) {
         // ****** scroll test ****** */
@@ -120,7 +123,7 @@ public class MyPreziSoSexy {
             p.setTranslateX(p.getTranslateX() - f * dx);
             p.setTranslateY(p.getTranslateY() - f * dy);
 
-            event.consume();
+            // event.consume();
         });
 
         EventHandler<MouseEvent> pressedaHandler = new EventHandler<MouseEvent>() {
@@ -147,7 +150,7 @@ public class MyPreziSoSexy {
                 p.setTranslateX(translateAnchorX + event.getSceneX() - mouseAnchorX);
                 p.setTranslateY(translateAnchorY + event.getSceneY() - mouseAnchorY);
 
-                event.consume();
+                // event.consume();
             }
         };
         p.setOnMouseDragged(draggedaHandler);
@@ -168,6 +171,23 @@ public class MyPreziSoSexy {
             if (event.getDragboard().hasFiles()) {
                 event.acceptTransferModes(TransferMode.ANY);
             }
+        });
+
+        clipChildren(p);
+    }
+
+    public void clipChildren(Region region) {
+        final Rectangle clipPane = new Rectangle();
+        clipPane.setWidth(region.getWidth());
+        clipPane.setHeight(region.getHeight());
+
+        region.setClip(clipPane);
+
+        // In case we want to make a resizable pane we need to update
+        // our clipPane dimensions
+        region.layoutBoundsProperty().addListener((ov, oldValue, newValue) -> {
+            clipPane.setWidth(newValue.getWidth());
+            clipPane.setHeight(newValue.getHeight());
         });
     }
 

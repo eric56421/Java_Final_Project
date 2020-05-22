@@ -157,7 +157,7 @@
                   </ScrollPane>
                </children>
             </VBox>
-            <BorderPane fx:id="middleBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="768.0" style="-fx-border-color: blue;" SplitPane.resizableWithParent="false" />
+            <BorderPane fx:id="middleBorderPane" minHeight="-Infinity" minWidth="-Infinity" style="-fx-border-color: blue;" />
             <BorderPane fx:id="rightBorderPane" prefHeight="200.0" prefWidth="200.0">
                <center>
                   <TabPane tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
