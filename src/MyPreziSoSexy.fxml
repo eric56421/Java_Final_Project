@@ -17,13 +17,12 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="763.0" prefWidth="1112.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MyPreziSoSexyController">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1140.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MyPreziSoSexyController">
    <children>
-      <MenuBar prefHeight="0.0" prefWidth="1046.0">
+      <MenuBar prefHeight="0.0" prefWidth="1150.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
@@ -142,9 +141,9 @@
             <Insets left="5.0" right="5.0" top="5.0" />
          </padding>
       </GridPane>
-      <SplitPane dividerPositions="0.17604355716878403, 0.822141560798548" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+      <SplitPane dividerPositions="0.17604355716878403, 0.822141560798548" prefHeight="615.0" prefWidth="1102.0" style="-fx-border-color: red;" VBox.vgrow="ALWAYS">
          <items>
-            <VBox prefHeight="200.0" prefWidth="100.0" SplitPane.resizableWithParent="false">
+            <VBox prefHeight="607.0" prefWidth="164.0" SplitPane.resizableWithParent="false">
                <children>
                   <ButtonBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="198.0">
                     <buttons>
@@ -158,11 +157,7 @@
                   </ScrollPane>
                </children>
             </VBox>
-            <BorderPane fx:id="middleBorderPane" prefHeight="200.0" prefWidth="200.0">
-               <center>
-                  <Pane fx:id="pane" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="618.0" prefWidth="377.0" BorderPane.alignment="CENTER" />
-               </center>
-            </BorderPane>
+            <BorderPane fx:id="middleBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="768.0" style="-fx-border-color: blue;" SplitPane.resizableWithParent="false" />
             <BorderPane fx:id="rightBorderPane" prefHeight="200.0" prefWidth="200.0">
                <center>
                   <TabPane tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
@@ -190,8 +185,11 @@
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
       </SplitPane>
-      <ButtonBar prefHeight="0.0" prefWidth="1046.0">
+      <ButtonBar fx:id="buttonBar" prefHeight="0.0" prefWidth="1046.0">
         <buttons>
           <Button mnemonicParsing="false" text="Slide show" />
         </buttons>
