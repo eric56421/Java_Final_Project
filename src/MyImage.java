@@ -15,7 +15,7 @@ public class MyImage{
         pane = p;
         pane.getChildren().addAll(imageView);
         
-        MyDragResizeMod.makeResizable(imageView);
+        MyDragResizeMode.makeResizable(imageView);
     }
 
     public void setPosition(double x, double y) {
