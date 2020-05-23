@@ -17,6 +17,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
@@ -141,9 +142,9 @@
             <Insets left="5.0" right="5.0" top="5.0" />
          </padding>
       </GridPane>
-      <SplitPane dividerPositions="0.17604355716878403, 0.822141560798548" prefHeight="615.0" prefWidth="1102.0" style="-fx-border-color: red;" VBox.vgrow="ALWAYS">
+      <SplitPane dividerPositions="0.17604355716878403, 0.5" prefHeight="615.0" prefWidth="1102.0" style="-fx-border-color: red;" VBox.vgrow="ALWAYS">
          <items>
-            <VBox prefHeight="607.0" prefWidth="164.0" SplitPane.resizableWithParent="false">
+            <VBox minWidth="-Infinity" prefHeight="607.0" prefWidth="164.0" SplitPane.resizableWithParent="false">
                <children>
                   <ButtonBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="198.0">
                     <buttons>
@@ -157,10 +158,10 @@
                   </ScrollPane>
                </children>
             </VBox>
-            <BorderPane fx:id="middleBorderPane" minHeight="-Infinity" minWidth="-Infinity" style="-fx-border-color: blue;" />
+            <Pane fx:id="middlePane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="589.0" prefWidth="762.0" />
             <BorderPane fx:id="rightBorderPane" prefHeight="200.0" prefWidth="200.0">
                <center>
-                  <TabPane tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+                  <TabPane prefHeight="589.0" prefWidth="269.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
                      <tabs>
                         <Tab text="Style">
                            <content>
