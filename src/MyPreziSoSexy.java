@@ -210,7 +210,7 @@ public class MyPreziSoSexy {
                 vBox.getChildren().addAll(currMyNode.flowPane);
 
                 System.out.println("hihhii" + middlePane.getChildren().size());
-                middlePane.getChildren().clear();
+                middlePane.getChildren().remove(0);
                 middlePane.getChildren().add(currMyNode.pane);
                 scrollPane.setContent(vBox);
 
@@ -226,6 +226,7 @@ public class MyPreziSoSexy {
             vBox.getChildren().clear();
             vBox.getChildren().addAll(currMyNode.parentNode.flowPane);
             currMyNode = currMyNode.parentNode;
+            middlePane.getChildren().remove(0);
             middlePane.getChildren().addAll(currMyNode.pane);
             System.out.println("Jump to node : " + currMyNode);
         }
@@ -239,6 +240,13 @@ public class MyPreziSoSexy {
 
     public MyNode currentMyNode() {
         return currMyNode;
+    }
+
+    public void showMySexyPrezi() {
+        middlePane.getChildren().removeAll(rootMyNode.pane);
+        ShowMySexyPrezi showMySexyPrezi = new ShowMySexyPrezi(rootMyNode);
+
+        showMySexyPrezi.firstShow();
     }
 
 }
