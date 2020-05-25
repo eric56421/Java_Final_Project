@@ -26,7 +26,7 @@ public class MyPreziSoSexyController {
     private VBox vBox;
 
     @FXML
-    private BorderPane middleBorderPane;
+    private Pane middlePane;
 
     @FXML
     private BorderPane rightBorderPane;
@@ -34,7 +34,7 @@ public class MyPreziSoSexyController {
     MyPreziSoSexy workspace;
 
     public void initialize() {
-        workspace = new MyPreziSoSexy(vBox, middleBorderPane, rightBorderPane, scrollPane, buttonBar);
+        workspace = new MyPreziSoSexy(vBox, middlePane, rightBorderPane, scrollPane, buttonBar);
     }
 
     @FXML

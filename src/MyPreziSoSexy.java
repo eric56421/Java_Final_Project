@@ -30,28 +30,25 @@ public class MyPreziSoSexy {
     // need to add a function that switch currMyNode;
     private MyNode currMyNode;
 
-    public BorderPane middleBorderPane, rightBorderPane;
+    public BorderPane rightBorderPane;
+    public Pane middlePane;
     // private final Rectangle middleBoRectangleCenterClip = new Rectangle();
     public ScrollPane scrollPane;
     public VBox vBox;
     public ButtonBar buttonBar;
 
+    double mouseAnchorX = 0, mouseAnchorY = 0;
+    double translateAnchorX = 0, translateAnchorY = 0;
+
     // all parametors are from FXML
-    public MyPreziSoSexy(VBox vb, BorderPane bp1, BorderPane bp2, ScrollPane sp, ButtonBar bB) {
-        this.middleBorderPane = bp1;
+    public MyPreziSoSexy(VBox vb, Pane p1, BorderPane bp2, ScrollPane sp, ButtonBar bB) {
+        this.middlePane = p1;
         this.rightBorderPane = bp2;
         this.vBox = vb;
         this.scrollPane = sp;
         this.buttonBar = bB;
 
         Pane p = new Pane();
-        // p.setClip(middleBoRectangleCenterClip);
-        // p.layoutBoundsProperty().addListener((ov, oldValue, newValue) -> {
-        // middleBoRectangleCenterClip.setWidth(newValue.getWidth());
-        // middleBoRectangleCenterClip.setHeight(newValue.getHeight());
-        // });
-
-        addPaneAllListeners(p);
         rootMyNode = new MyNode(p);
         setupRootPane(p);
         rootMyNode.pane = p;
@@ -60,20 +57,27 @@ public class MyPreziSoSexy {
         currMyNode.flowPane.setPrefWidth(scrollPane.getPrefWidth());
 
         vBox.getChildren().addAll(currMyNode.flowPane);
-        middleBorderPane.setCenter(currMyNode.pane);
         scrollPane.setContent(vBox);
-        clipChildren(middleBorderPane);
+        middlePane.getChildren().add(currMyNode.pane);
+        // clipChildren(middlePane);
     }
 
     public void setupRootPane(Pane rp) {
         rp.getChildren().addAll(new ImageView("file:../img/defult_background.jpg"));
+        setupMouseScrollingHandler(rp);
+        setupRightMouseButtonDragging(rp);
+        setupDragDropHandler(rp);
+        clipChildren(rp);
         // rp.getChildren().addAll(new Label("test"));
     }
 
     public void addChildMyNode() {
         Pane p = new Pane(); // this p should have some default widgets on it.
-
-        addPaneAllListeners(p);
+        
+        setupDragDropHandler(p);
+        setupMouseScrollingHandler(p);
+        setupRightMouseButtonDragging(p);
+        clipChildren(p);
 
         currMyNode.addChildNode(p);
         currMyNode.childNodes.getLast().thumbnail.setOnMouseClicked(event -> gotoMyChildNode(event));
@@ -83,11 +87,8 @@ public class MyPreziSoSexy {
         System.out.println("Current node : " + currMyNode + ", Child node : " + currMyNode.childNodes.getLast());
     }
 
-    double mouseAnchorX = 0, mouseAnchorY = 0;
-    double translateAnchorX = 0, translateAnchorY = 0;
 
-    /** Add all event listeners for pane in MyNode */
-    public void addPaneAllListeners(Pane p) {
+    public void setupMouseScrollingHandler(Pane p) {
         // ****** scroll test ****** */
         p.setOnScroll(event -> {
             double delta = 1.2;
@@ -125,7 +126,9 @@ public class MyPreziSoSexy {
 
             // event.consume();
         });
+    }
 
+    public void setupRightMouseButtonDragging(Pane p) {
         EventHandler<MouseEvent> pressedaHandler = new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
                 // right mouse button => panning
@@ -139,7 +142,6 @@ public class MyPreziSoSexy {
                 translateAnchorY = p.getTranslateY();
             }
         };
-        p.setOnMousePressed(pressedaHandler);
 
         EventHandler<MouseEvent> draggedaHandler = new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
@@ -154,7 +156,11 @@ public class MyPreziSoSexy {
             }
         };
         p.setOnMouseDragged(draggedaHandler);
+        p.setOnMousePressed(pressedaHandler);
+    }
 
+    /** Add all event listeners for pane in MyNode */
+    public void setupDragDropHandler(Pane p) {
         // drag image to add
         p.setOnDragDropped(event -> {
             List<File> files = event.getDragboard().getFiles();
@@ -172,8 +178,6 @@ public class MyPreziSoSexy {
                 event.acceptTransferModes(TransferMode.ANY);
             }
         });
-
-        clipChildren(p);
     }
 
     public void clipChildren(Region region) {
@@ -199,9 +203,9 @@ public class MyPreziSoSexy {
                 vBox.getChildren().remove(0);
                 vBox.getChildren().addAll(currMyNode.flowPane);
 
-                System.out.println("hihhii" + middleBorderPane.getChildren().size());
-                middleBorderPane.getChildren().remove(0);
-                middleBorderPane.setCenter(currMyNode.pane);
+                System.out.println("hihhii" + middlePane.getChildren().size());
+                middlePane.getChildren().clear();
+                middlePane.getChildren().add(currMyNode.pane);
                 scrollPane.setContent(vBox);
 
                 System.out.println("Child node found.");
@@ -213,10 +217,10 @@ public class MyPreziSoSexy {
 
     public void gotoMyParentNode() {
         if (isRootMyNode() != true) {
-            vBox.getChildren().remove(0);
+            vBox.getChildren().clear();
             vBox.getChildren().addAll(currMyNode.parentNode.flowPane);
             currMyNode = currMyNode.parentNode;
-            middleBorderPane.setCenter(currMyNode.pane);
+            middlePane.getChildren().addAll(currMyNode.pane);
             System.out.println("Jump to node : " + currMyNode);
         }
     }
