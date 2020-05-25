@@ -66,4 +66,9 @@ public class MyPreziSoSexyController {
     void onOpenMenuItemPressed(ActionEvent event) {
 
     }
+
+    @FXML
+    void onSlideShowButtonPressed(ActionEvent event) {
+        workspace.showMySexyPrezi();
+    }
 }
