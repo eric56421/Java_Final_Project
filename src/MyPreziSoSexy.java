@@ -63,7 +63,13 @@ public class MyPreziSoSexy {
     }
 
     public void setupRootPane(Pane rp) {
-        rp.getChildren().addAll(new ImageView("file:../img/defult_background.jpg"));
+        ImageView iv = new ImageView("file:../img/defult_background.jpg");
+        iv.setSmooth(true);
+        iv.setCache(true);
+        iv.setFitHeight(rp.getPrefHeight());
+        iv.setFitWidth(rp.getPrefWidth());
+
+        rp.getChildren().addAll(iv);
         setupMouseScrollingHandler(rp);
         setupRightMouseButtonDragging(rp);
         setupDragDropHandler(rp);
