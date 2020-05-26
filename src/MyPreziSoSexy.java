@@ -79,7 +79,7 @@ public class MyPreziSoSexy {
 
     public void addChildMyNode() {
         Pane p = new Pane(); // this p should have some default widgets on it.
-        
+
         setupDragDropHandler(p);
         setupMouseScrollingHandler(p);
         setupRightMouseButtonDragging(p);
@@ -92,7 +92,6 @@ public class MyPreziSoSexy {
         scrollPane.setContent(vBox);
         System.out.println("Current node : " + currMyNode + ", Child node : " + currMyNode.childNodes.getLast());
     }
-
 
     public void setupMouseScrollingHandler(Pane p) {
         // ****** scroll test ****** */
@@ -108,8 +107,8 @@ public class MyPreziSoSexy {
                 scale *= delta;
             }
 
-            final double MAX_SCALE = 10.0;
-            final double MIN_SCALE = 0.1;
+            final double MAX_SCALE = 40.0;
+            final double MIN_SCALE = 1.0;
 
             if (scale < MIN_SCALE) {
                 scale = MIN_SCALE;
