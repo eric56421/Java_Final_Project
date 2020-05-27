@@ -8,9 +8,11 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -67,7 +69,7 @@
          <children>
             <Button mnemonicParsing="false" prefWidth="60.0" GridPane.columnIndex="4" />
             <Button mnemonicParsing="false" onMouseReleased="#onImageButtonMouseReleased" prefWidth="60.0" GridPane.columnIndex="5" />
-            <Button mnemonicParsing="false" prefWidth="60.0" GridPane.columnIndex="3" />
+            <Button mnemonicParsing="false" onMouseClicked="#onTextButtonClicked" prefWidth="60.0" GridPane.columnIndex="3" />
             <Button mnemonicParsing="false" prefWidth="60.0" GridPane.columnIndex="2" />
             <Button mnemonicParsing="false" prefWidth="60.0" GridPane.columnIndex="6" />
             <Button mnemonicParsing="false" onMouseReleased="#onAddNodeButtonReleased" prefWidth="60.0" />
@@ -104,7 +106,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </Label>
-            <ImageView fitHeight="15.0" fitWidth="15.0" GridPane.columnIndex="3">
+            <ImageView fitHeight="15.0" fitWidth="15.0" onMouseClicked="#onTextButtonClicked" GridPane.columnIndex="3">
                <image>
                   <Image url="@../img/text.png" />
                </image>
@@ -148,7 +150,7 @@
                <children>
                   <ButtonBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="198.0">
                     <buttons>
-                      <Button minWidth="59.0" mnemonicParsing="false" onAction="#onButtonBackPressed" prefHeight="23.0" prefWidth="75.0" text="Back" />
+                      <Button minWidth="59.0" mnemonicParsing="false" onAction="#onBackButtonPressed" prefHeight="23.0" prefWidth="75.0" text="Back" />
                     </buttons>
                   </ButtonBar>
                   <ScrollPane fx:id="scrollPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
@@ -163,17 +165,44 @@
                <center>
                   <TabPane prefHeight="589.0" prefWidth="269.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
                      <tabs>
-                        <Tab text="Style">
+                        <Tab text="background">
                            <content>
-                              <AnchorPane maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <GridPane layoutY="3.0" prefHeight="557.0" prefWidth="180.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="80.0" minWidth="10.0" prefWidth="55.0" />
+                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="132.0" minWidth="10.0" prefWidth="115.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="137.0" minHeight="10.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="56.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                                          <RowConstraints vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="64.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="153.0" minHeight="10.0" prefHeight="153.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                       <children>
+                                          <Label text="Opacity" />
+                                          <Slider GridPane.columnIndex="1" />
+                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Label text="Font" GridPane.rowIndex="1" />
+                                          <Label text="Red" GridPane.rowIndex="2" />
+                                          <Label text="Blue" GridPane.rowIndex="3" />
+                                          <Label text="Green" GridPane.rowIndex="4" />
+                                          <Slider GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <Slider GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <Slider GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                       </children>
+                                    </GridPane>
+                                 </children></AnchorPane>
                            </content>
                         </Tab>
                         <Tab text="Text">
-                           <content>
-                              <AnchorPane maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                           </content>
-                        </Tab>
-                        <Tab text="Arrange">
                            <content>
                               <AnchorPane maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                            </content>
