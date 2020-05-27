@@ -236,11 +236,16 @@ public class MyPreziSoSexy {
         return currMyNode;
     }
 
-    public void showMySexyPrezi() {
-        middlePane.getChildren().removeAll(rootMyNode.pane);
+    public void showMySexyPrezi() throws CloneNotSupportedException {
+        // this.middlePane = null;
+        // write a setup function
+
+        middlePane.getChildren().remove(0);
         ShowMySexyPrezi showMySexyPrezi = new ShowMySexyPrezi(rootMyNode);
 
-        showMySexyPrezi.firstShow();
+        showMySexyPrezi.show();
+
+        System.out.println("exit from show");
     }
 
 }

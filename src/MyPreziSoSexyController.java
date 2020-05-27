@@ -68,7 +68,7 @@ public class MyPreziSoSexyController {
     }
 
     @FXML
-    void onSlideShowButtonPressed(ActionEvent event) {
+    void onSlideShowButtonPressed(ActionEvent event) throws CloneNotSupportedException {
         workspace.showMySexyPrezi();
     }
 }
