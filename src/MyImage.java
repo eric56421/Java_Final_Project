@@ -8,7 +8,7 @@ public class MyImage{
     private ImageView imageView;
     private Pane pane;
 
-    MyImage(Image i, Pane p) {
+    public MyImage(Image i, Pane p) {
         image = i;
         imageView = new ImageView();
         imageView.setImage(i);

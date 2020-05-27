@@ -18,6 +18,7 @@ import java.util.LinkedList;
 
 public class MyNode implements Cloneable {
     private ArrayList<MyImage> myImages; // should be replaced by MyWidget
+    private ArrayList<MyText> myTexts;
     public Pane pane;
     public LinkedList<MyNode> childNodes;
     public MyNode parentNode;
@@ -35,6 +36,7 @@ public class MyNode implements Cloneable {
         pane.setBackground(new Background(new BackgroundFill(Color.RED, null, null)));        
 
         myImages = new ArrayList<MyImage>();
+        myTexts = new ArrayList<MyText>();
         childNodes = new LinkedList<MyNode>();
         flowPane = new FlowPane();
 
@@ -79,4 +81,8 @@ public class MyNode implements Cloneable {
             childNodes.get(i).removeAllEventHandlers();
     }
 
+    public void addMyText() {
+        myTexts.add(new MyText(this.pane));
+        myTexts.get(myTexts.size() - 1).setPosition(0,0);
+    }
 }

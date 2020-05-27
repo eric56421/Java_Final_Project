@@ -58,7 +58,13 @@ public class MyPreziSoSexyController {
     }
 
     @FXML
-    void onButtonBackPressed(ActionEvent event) {
+    void onTextButtonClicked(MouseEvent event) {
+        workspace.currentMyNode().addMyText();
+        // workspace.currentMyNode().pane.getChildren().addAll(new TextArea("type something here."));
+    }
+
+    @FXML
+    void onBackButtonPressed(ActionEvent event) {
         workspace.gotoMyParentNode();
     }
 
@@ -66,6 +72,8 @@ public class MyPreziSoSexyController {
     void onOpenMenuItemPressed(ActionEvent event) {
 
     }
+
+
 
     @FXML
     void onSlideShowButtonPressed(ActionEvent event) throws CloneNotSupportedException {
