@@ -1,9 +1,10 @@
 // package sample;
-// Useles class
+
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.image.ImageView;
@@ -13,7 +14,7 @@ import javafx.scene.image.ImageView;
  *
  * Rectangle rectangle = new Rectangle(50, 50);
  * rectangle.setFill(Color.BLACK);
- * MyDragResizeMode.makeResizable(rectangle, null);
+ * MyWidget.makeResizable(rectangle, null);
  *
  * Pane root = new Pane();
  * root.getChildren().add(rectangle);
@@ -31,7 +32,7 @@ import javafx.scene.image.ImageView;
  * There is defaultListener and it works only with Canvas nad Rectangle
  */
 
-public class MyDragResizeMode {
+public class MyWidget {
     public interface OnDragResizeEventListener {
         void onDrag(Node node, double x, double y, double h, double w);
 
@@ -82,6 +83,13 @@ public class MyDragResizeMode {
             } else if (node instanceof ImageView) {
                 ((ImageView) node).setFitWidth(w);
                 ((ImageView) node).setFitHeight(h);
+            } else if (node instanceof TextArea) {
+                ((TextArea) node).setPrefWidth(w);
+                ((TextArea) node).setPrefHeight(h);
+
+                
+                // TextArea test = new TextArea();
+                // test.setpre
             }
 
         }
@@ -113,44 +121,73 @@ public class MyDragResizeMode {
     private static final double MIN_W = 30;
     private static final double MIN_H = 20;
 
-    private MyDragResizeMode(Node node, OnDragResizeEventListener listener) {
+    protected void setResizableWidget(Node node) {
         this.node = node;
-        if (listener != null)
-            this.listener = listener;
-    }
-
-    public static void makeResizable(Node node) {
-        makeResizable(node, null);
-    }
-
-    public static void makeResizable(Node node, OnDragResizeEventListener listener) {
-        final MyDragResizeMode resizer = new MyDragResizeMode(node, listener);
-
-        node.setOnMousePressed(new EventHandler<MouseEvent>() {
+        
+        this.node.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                resizer.mousePressed(event);
+                mousePressed(event);
             }
         });
-        node.setOnMouseDragged(new EventHandler<MouseEvent>() {
+        this.node.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                resizer.mouseDragged(event);
+                mouseDragged(event);
             }
         });
-        node.setOnMouseMoved(new EventHandler<MouseEvent>() {
+        this.node.setOnMouseMoved(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                resizer.mouseOver(event);
+                mouseOver(event);
             }
         });
-        node.setOnMouseReleased(new EventHandler<MouseEvent>() {
+        this.node.setOnMouseReleased(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                resizer.mouseReleased(event);
+                mouseReleased(event);
             }
         });
     }
+
+    // private MyWidget(Node node, OnDragResizeEventListener listener) {
+    //     this.node = node;
+    //     if (listener != null)
+    //         this.listener = listener;
+    // }
+
+    // public static void makeResizable(Node node) {
+    //     makeResizable(node, null);
+    // }
+
+    // public static void makeResizable(Node node, OnDragResizeEventListener listener) {
+    //     final MyWidget resizer = new MyWidget(node, listener);
+
+    //     node.setOnMousePressed(new EventHandler<MouseEvent>() {
+    //         @Override
+    //         public void handle(MouseEvent event) {
+    //             resizer.mousePressed(event);
+    //         }
+    //     });
+    //     node.setOnMouseDragged(new EventHandler<MouseEvent>() {
+    //         @Override
+    //         public void handle(MouseEvent event) {
+    //             resizer.mouseDragged(event);
+    //         }
+    //     });
+    //     node.setOnMouseMoved(new EventHandler<MouseEvent>() {
+    //         @Override
+    //         public void handle(MouseEvent event) {
+    //             resizer.mouseOver(event);
+    //         }
+    //     });
+    //     node.setOnMouseReleased(new EventHandler<MouseEvent>() {
+    //         @Override
+    //         public void handle(MouseEvent event) {
+    //             resizer.mouseReleased(event);
+    //         }
+    //     });
+    // }
 
     protected void mouseReleased(MouseEvent event) {
         node.setCursor(Cursor.DEFAULT);

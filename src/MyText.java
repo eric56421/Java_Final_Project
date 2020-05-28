@@ -8,7 +8,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.Font;
 import javafx.scene.paint.Color;
 
-public class MyText {
+public class MyText extends MyWidget {
     private TextArea textArea;
     private Pane pane;
     // private Font font;
@@ -20,11 +20,10 @@ public class MyText {
     public MyText(Pane p) {
         textArea = new TextArea("type something here");
         this.pane = p;
-        MyDragResizeMode.makeResizable(textArea);
         // font = new Font(12);
         // textColor = new Color(0, 0, 1, 0);
-        textArea.setWrapText(true);
-        textArea.setEditable(false);
+        // textArea.setWrapText(true);
+        // textArea.setEditable(false);
         pane.getChildren().addAll(textArea);
         r = 0;
         g = 0;
@@ -33,6 +32,7 @@ public class MyText {
         // setTextColor(0, 0, 0);
         
         // opacity.bind(slider.valueProperty());
+        setResizableWidget(textArea);
     }
 
     // public void setFont(int f) {

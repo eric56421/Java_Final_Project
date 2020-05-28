@@ -2,6 +2,7 @@ import java.util.*;
 import java.util.concurrent.CyclicBarrier;
 import java.io.*;
 
+import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.BorderPane;
@@ -244,13 +245,14 @@ public class MyPreziSoSexy {
     public void showMySexyPrezi() throws CloneNotSupportedException {
         // this.middlePane = null;
         // write a setup function
-
+        Node node = middlePane.getChildren().get(0);
         middlePane.getChildren().remove(0);
+        
         ShowMySexyPrezi showMySexyPrezi = new ShowMySexyPrezi(rootMyNode);
-
         showMySexyPrezi.show();
-
         System.out.println("exit from show");
+
+        middlePane.getChildren().add(node);
     }
 
 }

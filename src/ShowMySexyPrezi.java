@@ -31,7 +31,6 @@ public class ShowMySexyPrezi {
             scene = new Scene(root, windowWidth, windowHeight);
         }
         catch (Exception exception) {
-            System.out.println("HIHIHIHI");
             System.out.println(exception);
         }
         showWindow = new Stage();
