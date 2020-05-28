@@ -7,14 +7,18 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.image.*;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.control.*;
 import javafx.scene.SnapshotParameters;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class MyNode {
+public class MyNode implements Cloneable {
     private ArrayList<MyImage> myImages; // should be replaced by MyWidget
+    private ArrayList<MyText> myTexts;
     public Pane pane;
     public LinkedList<MyNode> childNodes;
     public MyNode parentNode;
@@ -32,6 +36,7 @@ public class MyNode {
         pane.setBackground(new Background(new BackgroundFill(Color.RED, null, null)));        
 
         myImages = new ArrayList<MyImage>();
+        myTexts = new ArrayList<MyText>();
         childNodes = new LinkedList<MyNode>();
         flowPane = new FlowPane();
 
@@ -40,6 +45,11 @@ public class MyNode {
         thumbnail = new ImageView("file:../img/beach.jpg");
         thumbnail.setPreserveRatio(true);
         thumbnail.setFitWidth(191);
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     public void addChildNode(Pane p) { // need to give a pane with a shape
@@ -58,5 +68,21 @@ public class MyNode {
         myImages.add(new MyImage(i, this.pane));
         myImages.get(myImages.size() - 1).setPosition(x, y);
         // thumbnail = new ImageView(pane.snapshot(new SnapshotParameters(), null));
+    }
+
+    public void removeAllEventHandlers() {
+        pane.removeEventHandler(DragEvent.ANY, pane.getOnDragDropped());
+        pane.removeEventHandler(DragEvent.ANY, pane.getOnDragOver());
+        pane.removeEventHandler(ScrollEvent.ANY, pane.getOnScroll());
+        pane.removeEventHandler(MouseEvent.ANY, pane.getOnMouseDragged());
+        pane.removeEventHandler(MouseEvent.ANY, pane.getOnMousePressed());
+        // pane.geton
+        for (int i=0; i<childNodes.size(); i++)
+            childNodes.get(i).removeAllEventHandlers();
+    }
+
+    public void addMyText() {
+        myTexts.add(new MyText(this.pane));
+        myTexts.get(myTexts.size() - 1).setPosition(0,0);
     }
 }
