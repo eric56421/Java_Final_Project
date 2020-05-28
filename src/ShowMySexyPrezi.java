@@ -3,6 +3,7 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.stage.Screen;
+import javafx.scene.layout.Pane;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
@@ -26,7 +27,10 @@ public class ShowMySexyPrezi {
 
         //--- new a window ---
         windowWidth = Screen.getPrimary().getBounds().getWidth();        
-        windowHeight = Screen.getPrimary().getBounds().getHeight();        
+        windowHeight = Screen.getPrimary().getBounds().getHeight();
+
+        System.out.println("Before scene" + ((Pane) root).getWidth());
+        
         try {
             scene = new Scene(root, windowWidth, windowHeight);
         }
@@ -35,7 +39,8 @@ public class ShowMySexyPrezi {
         }
         showWindow = new Stage();
         showWindow.setScene(scene);
-
+        
+        System.out.println("After scene" + ((Pane) root).getWidth());
 
         //--- set the window as fullscreen ---
         showWindow.setMaximized(true);
@@ -57,6 +62,10 @@ public class ShowMySexyPrezi {
         showWindow.showAndWait();
 
         return;
+    }
+
+    public void firstShow() {
+
     }
 
     public void updateShow() {

@@ -64,7 +64,7 @@ public class MyPreziSoSexy {
     }
 
     public void setupRootPane(Pane rp) {
-        ImageView iv = new ImageView("file:../img/defult_background.jpg");
+        ImageView iv = new ImageView("file:../img/default_background.jpg");
         iv.setSmooth(true);
         iv.setCache(true);
         iv.setFitHeight(rp.getPrefHeight());

@@ -17,7 +17,19 @@ public class MyImage extends MyWidget {
         pane = p;
         pane.getChildren().addAll(imageView);
         
-        setResizableWidget(imageView);        
+        setResizableWidget(imageView);
+        
+        //--- set auto resizable ---
+        pane.widthProperty().addListener((obs, oldVal, newVal) -> {
+            double ratio = newVal.doubleValue()/oldVal.doubleValue();
+            System.out.println(imageView.getFitHeight());
+            imageView.setFitWidth(imageView.getFitWidth() * ratio);
+        });
+        pane.heightProperty().addListener((obs, oldVal, newVal) -> {
+            double ratio = newVal.doubleValue()/oldVal.doubleValue();
+            imageView.setFitHeight(imageView.getFitHeight() * ratio);
+        });
+
     }
 
     public void setPosition(double x, double y) {
