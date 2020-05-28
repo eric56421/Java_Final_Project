@@ -35,6 +35,10 @@ public class MyText extends MyWidget {
         setResizableWidget(textArea);
     }
 
+    @Override
+    public void setSizeRatio(double ration) {
+        
+    }
     // public void setFont(int f) {
     //     textArea.setFont(font);
     // }

@@ -8,6 +8,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.ButtonBar;
@@ -69,13 +71,12 @@ public class MyPreziSoSexy {
         iv.setCache(true);
         iv.setFitHeight(rp.getPrefHeight());
         iv.setFitWidth(rp.getPrefWidth());
-
+  
         rp.getChildren().addAll(iv);
         setupMouseScrollingHandler(rp);
         setupRightMouseButtonDragging(rp);
         setupDragDropHandler(rp);
         clipChildren(rp);
-        // rp.getChildren().addAll(new Label("test"));
     }
 
     public void addChildMyNode() {

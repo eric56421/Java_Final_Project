@@ -85,4 +85,10 @@ public class MyNode implements Cloneable {
         myTexts.add(new MyText(this.pane));
         myTexts.get(myTexts.size() - 1).setPosition(0,0);
     }
+
+    public void Resize(double ratio) {
+        for (int i=0; i<myImages.size(); i++) {
+            myImages.get(i).setSizeRatio(ratio);
+        }
+    }
 }

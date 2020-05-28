@@ -32,7 +32,7 @@ import javafx.scene.image.ImageView;
  * There is defaultListener and it works only with Canvas nad Rectangle
  */
 
-public class MyWidget {
+public abstract class MyWidget {
     public interface OnDragResizeEventListener {
         void onDrag(Node node, double x, double y, double h, double w);
 
@@ -150,44 +150,7 @@ public class MyWidget {
         });
     }
 
-    // private MyWidget(Node node, OnDragResizeEventListener listener) {
-    //     this.node = node;
-    //     if (listener != null)
-    //         this.listener = listener;
-    // }
-
-    // public static void makeResizable(Node node) {
-    //     makeResizable(node, null);
-    // }
-
-    // public static void makeResizable(Node node, OnDragResizeEventListener listener) {
-    //     final MyWidget resizer = new MyWidget(node, listener);
-
-    //     node.setOnMousePressed(new EventHandler<MouseEvent>() {
-    //         @Override
-    //         public void handle(MouseEvent event) {
-    //             resizer.mousePressed(event);
-    //         }
-    //     });
-    //     node.setOnMouseDragged(new EventHandler<MouseEvent>() {
-    //         @Override
-    //         public void handle(MouseEvent event) {
-    //             resizer.mouseDragged(event);
-    //         }
-    //     });
-    //     node.setOnMouseMoved(new EventHandler<MouseEvent>() {
-    //         @Override
-    //         public void handle(MouseEvent event) {
-    //             resizer.mouseOver(event);
-    //         }
-    //     });
-    //     node.setOnMouseReleased(new EventHandler<MouseEvent>() {
-    //         @Override
-    //         public void handle(MouseEvent event) {
-    //             resizer.mouseReleased(event);
-    //         }
-    //     });
-    // }
+    public abstract void setSizeRatio(double ratio);
 
     protected void mouseReleased(MouseEvent event) {
         node.setCursor(Cursor.DEFAULT);
