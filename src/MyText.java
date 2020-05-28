@@ -9,44 +9,25 @@ import javafx.scene.text.Font;
 import javafx.scene.paint.Color;
 
 public class MyText extends MyWidget {
-    private TextArea textArea;
-    private Pane pane;
-    // private Font font;
-    private Color textColor;
-    private DoubleProperty opacity;
-    public Slider slider;
-    public int r, g, b;
+    public TextArea textArea;
+    private Color textR, textG, textB;
+    private Color backgroundR, backgroundG, backgroundB;
 
-    public MyText(Pane p) {
+    public MyText() {
         textArea = new TextArea("type something here");
-        this.pane = p;
-        // font = new Font(12);
-        // textColor = new Color(0, 0, 1, 0);
-        // textArea.setWrapText(true);
-        // textArea.setEditable(false);
-        pane.getChildren().addAll(textArea);
-        r = 0;
-        g = 0;
-        b = 0;
-        setBackgroundOpacity(0.5);
-        // setTextColor(0, 0, 0);
-        
-        // opacity.bind(slider.valueProperty());
+        setBackgroundOpacity(1);
         setResizableWidget(textArea);
     }
 
     // public void setFont(int f) {
-    //     textArea.setFont(font);
+    // textArea.setFont(font);
     // }
-    
-    public void setTextColor(int r, int g, int b) {
-        this.r= r;
-        this.g = g;
-        this.b = b;
-        textArea.setStyle(String.format("-fx-text-inner-color: rgba(%d, %d, %d, 1);", r, g, b));
-    
+
+    public void setTextAreaColor(int r, int g, int b) {
+        textArea.setStyle(String.format("-fx-textArea-inner-color: rgba(%d, %d, %d, 1);", r, g, b));
+
     }
-    
+
     public void setBackgroundOpacity(double o) {
         textArea.setOpacity(o);
     }
@@ -55,5 +36,5 @@ public class MyText extends MyWidget {
         textArea.setLayoutX(x);
         textArea.setLayoutY(y);
     }
-    
+
 }

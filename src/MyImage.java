@@ -5,18 +5,13 @@ import javafx.scene.control.*;
 
 public class MyImage extends MyWidget {
     private Image image;
-    private ImageView imageView;
-    private Pane pane;
+    public ImageView imageView;
 
-    public MyImage(Image i, Pane p) {        
+    public MyImage(Image i) {        
         // super(imageView);
-        
         image = i;
         imageView = new ImageView();
         imageView.setImage(i);
-        pane = p;
-        pane.getChildren().addAll(imageView);
-        
         setResizableWidget(imageView);        
     }
 

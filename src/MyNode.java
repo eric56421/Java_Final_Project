@@ -65,8 +65,9 @@ public class MyNode implements Cloneable {
     }
 
     public void addMyImage(Image i, double x, double y) {
-        myImages.add(new MyImage(i, this.pane));
+        myImages.add(new MyImage(i));
         myImages.get(myImages.size() - 1).setPosition(x, y);
+        pane.getChildren().addAll(myImages.get(myImages.size() - 1).imageView);
         // thumbnail = new ImageView(pane.snapshot(new SnapshotParameters(), null));
     }
 
@@ -82,7 +83,8 @@ public class MyNode implements Cloneable {
     }
 
     public void addMyText() {
-        myTexts.add(new MyText(this.pane));
-        myTexts.get(myTexts.size() - 1).setPosition(0,0);
+        myTexts.add(new MyText());
+        pane.getChildren().addAll(myTexts.get(myTexts.size()-1).textArea);
+        myTexts.get(myTexts.size() - 1).setPosition(100,100);
     }
 }

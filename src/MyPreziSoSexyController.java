@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.control.ColorPicker;
 import javafx.event.*;
 import javafx.scene.image.*;
 import javafx.scene.layout.BorderPane;
@@ -18,6 +19,9 @@ public class MyPreziSoSexyController {
 
     @FXML
     private ScrollPane scrollPane;
+
+    @FXML
+    private ColorPicker colorPicker;
 
     @FXML
     private ButtonBar buttonBar;
@@ -73,7 +77,10 @@ public class MyPreziSoSexyController {
 
     }
 
+    @FXML
+    void pickingColor(ActionEvent event) {
 
+    }
 
     @FXML
     void onSlideShowButtonPressed(ActionEvent event) throws CloneNotSupportedException {
