@@ -11,6 +11,7 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.control.*;
+import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
 
 import java.util.ArrayList;
@@ -82,9 +83,9 @@ public class MyNode implements Cloneable {
             childNodes.get(i).removeAllEventHandlers();
     }
 
-    public void addMyText() {
-        myTexts.add(new MyText());
-        pane.getChildren().addAll(myTexts.get(myTexts.size()-1).textArea);
+    public void addMyText(BorderPane bp) {
+        myTexts.add(new MyText(bp));
+        pane.getChildren().addAll(myTexts.get(myTexts.size() - 1).textArea);
         myTexts.get(myTexts.size() - 1).setPosition(100,100);
     }
 }
