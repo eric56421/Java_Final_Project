@@ -18,12 +18,22 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
-
+import javafx.scene.SnapshotParameters;
 import javafx.scene.input.DragEvent;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+
+import javafx.animation.ScaleTransition;
+import javafx.animation.SequentialTransition;
+import javafx.animation.Interpolator;
+import javafx.animation.ParallelTransition;
+import javafx.animation.PathTransition;
+import javafx.util.Duration;
 
 public class MyPreziSoSexy {
     private MyNode rootMyNode;
@@ -85,8 +95,8 @@ public class MyPreziSoSexy {
         setupMouseScrollingHandler(p);
         setupRightMouseButtonDragging(p);
         clipChildren(p);
-
         currMyNode.addChildNode(p);
+
         currMyNode.childNodes.getLast().thumbnail.setOnMouseClicked(event -> gotoMyChildNode(event));
         currMyNode.childNodes.getLast().flowPane.setMaxWidth(scrollPane.getPrefWidth());
 
@@ -100,7 +110,6 @@ public class MyPreziSoSexy {
             double delta = 1.2;
             double scale = p.getScaleY();
             double oldScale = scale;
-            DoubleProperty myScale = new SimpleDoubleProperty(1.0);
 
             if (event.getDeltaY() < 0) {
                 scale /= delta;
@@ -121,10 +130,8 @@ public class MyPreziSoSexy {
             double dx = (event.getX() - (p.getBoundsInParent().getWidth() / 2 + p.getBoundsInParent().getMinX()));
             double dy = (event.getY() - (p.getBoundsInParent().getHeight() / 2 + p.getBoundsInParent().getMinY()));
 
-            myScale.set(scale);
-
-            p.scaleXProperty().bind(myScale);
-            p.scaleYProperty().bind(myScale);
+            p.setScaleX(scale);
+            p.setScaleY(scale);
 
             // note: pivot value must be untransformed, i. e. without scaling
             p.setTranslateX(p.getTranslateX() - f * dx);
@@ -204,15 +211,15 @@ public class MyPreziSoSexy {
     public void gotoMyChildNode(MouseEvent me) {
         for (MyNode n : currMyNode.childNodes) {
             if (n.thumbnail == me.getSource()) {
+                zoomInChildnode(currMyNode.pane);
                 currMyNode = n;
 
-                vBox.getChildren().remove(0);
-                vBox.getChildren().addAll(currMyNode.flowPane);
+                // vBox.getChildren().remove(0);
+                // vBox.getChildren().addAll(currMyNode.flowPane);
 
-                System.out.println("hihhii" + middlePane.getChildren().size());
-                middlePane.getChildren().remove(0);
-                middlePane.getChildren().add(currMyNode.pane);
-                scrollPane.setContent(vBox);
+                // middlePane.getChildren().remove(0);
+                // middlePane.getChildren().add(currMyNode.pane);
+                // scrollPane.setContent(vBox);
 
                 System.out.println("Child node found.");
                 break;
@@ -221,10 +228,53 @@ public class MyPreziSoSexy {
         System.out.println("Jump to node : " + currMyNode);
     }
 
+    public void zoomInChildnode(Pane p) {
+        System.out.println("rootNode pane" + rootMyNode.pane);
+        System.out.println("currNode pane" + currMyNode.pane);
+        System.out.println(p);
+        double f = currMyNode.pane.getHeight() / currMyNode.thumbnail2.getFitHeight();
+
+        Path path = new Path(new MoveTo(1,1), new LineTo(p.getLayoutX(), p.getLayoutY()));
+        PathTransition pathTransition = new PathTransition(Duration.seconds(1), path);
+        pathTransition.setCycleCount(1);
+        pathTransition.setInterpolator(Interpolator.EASE_IN);
+
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(1));
+        scaleTransition.setByX(5);
+        scaleTransition.setByY(5);
+        scaleTransition.setCycleCount(1);
+        scaleTransition.setInterpolator(Interpolator.EASE_OUT);
+        
+        ParallelTransition pt = new ParallelTransition(p, scaleTransition, pathTransition);
+        System.out.println("playing");
+        pt.play();
+
+        st.setOnFinished(e -> {
+            System.out.println("Hi finished");
+            vBox.getChildren().remove(0);
+            vBox.getChildren().addAll(currMyNode.flowPane);
+
+            middlePane.getChildren().remove(0);
+            System.out.println(middlePane.getChildren().size());
+            middlePane.getChildren().add(currMyNode.pane);
+            scrollPane.setContent(vBox);
+
+        });
+        System.out.println("f = " + f);
+    }
+
     public void gotoMyParentNode() {
         if (isRootMyNode() != true) {
             vBox.getChildren().clear();
             vBox.getChildren().addAll(currMyNode.parentNode.flowPane);
+
+            currMyNode.thumbnail.setImage(currMyNode.pane.snapshot(new SnapshotParameters(), null));
+            currMyNode.parentNode.pane.getChildren().remove(currMyNode.thumbnail2);
+            currMyNode.thumbnail2.setImage(currMyNode.pane.snapshot(new SnapshotParameters(), null));
+            currMyNode.parentNode.pane.getChildren().add(currMyNode.thumbnail2);
+            // currMyNode.parentNode.addMyImage(currMyNode.pane.snapshot(new
+            // SnapshotParameters(), null), 0, 0);
+
             currMyNode = currMyNode.parentNode;
             middlePane.getChildren().remove(0);
             middlePane.getChildren().addAll(currMyNode.pane);
@@ -247,7 +297,7 @@ public class MyPreziSoSexy {
         // write a setup function
         Node node = middlePane.getChildren().get(0);
         middlePane.getChildren().remove(0);
-        
+
         ShowMySexyPrezi showMySexyPrezi = new ShowMySexyPrezi(rootMyNode);
         showMySexyPrezi.show();
         System.out.println("exit from show");

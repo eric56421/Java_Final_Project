@@ -32,15 +32,19 @@ public class MyText extends MyWidget {
     private GridPane gridPane1, gridPane2;
     private Tab tab1, tab2;
     private Node textAreaContent;
-    private ComboBox textStyleComboBox;
+    private ComboBox<String> textStyleComboBox;
 
     public MyText(BorderPane bp) {
         textArea = new TextArea("type something here");
+        textArea.setMinHeight(0);
+
 
         colorPicker1 = new ColorPicker();
         colorPicker2 = new ColorPicker();
-        fontSizeTextField = new TextField();
-        String styles[] = { "normal", "italic", "oblique" };
+        fontSizeTextField = new TextField("12");
+        String styles[] = { "normal", "Serif", "Times New Roman", "Verdana", "Tahoma", "Lucida Handwriting",
+                "Microsoft YaHei", "Harlow Solid Italic", "Informal Roman", "Gill Sans Ultra Bold",
+                "Hanyi Senty Lotus" };
         textStyleComboBox = new ComboBox<String>(FXCollections.observableArrayList(styles));
         // textStyleComboBox.setOnAction(event->{});
         gridPane1 = new GridPane();
@@ -55,7 +59,7 @@ public class MyText extends MyWidget {
         gridPane2.add(new Label("Size"), 0, 2);
         gridPane2.add(colorPicker2, 1, 0);
         gridPane2.add(textStyleComboBox, 1, 1);
-        gridPane2.add(fontSizeTextField,1,2);
+        gridPane2.add(fontSizeTextField, 1, 2);
 
         tab1 = new Tab("BackGround");
         tab2 = new Tab("Text");
@@ -72,7 +76,7 @@ public class MyText extends MyWidget {
             textAreaContent = textArea.lookup(".content");
             setResizableWidget(textAreaContent);
             setResizableWidget(textArea);
-            // textAreaContent.toFront();
+            textAreaContent.toFront();
         });
 
         colorPicker1.setOnAction((ActionEvent t) -> {
@@ -82,6 +86,13 @@ public class MyText extends MyWidget {
         colorPicker2.setOnAction((ActionEvent t) -> {
             setTextColor(colorPicker2.getValue());
         });
+        textStyleComboBox.setOnAction(event -> {
+            setFontFamily(textStyleComboBox.getValue().toString());
+        });
+        fontSizeTextField.setOnAction(event -> {
+            setFontFamily(textStyleComboBox.getValue().toString());
+        });
+        // System.out.println(Font.getFamilies());
     }
 
     // public void setFont(int f) {
@@ -109,9 +120,14 @@ public class MyText extends MyWidget {
         textArea.setStyle(s);
     };
 
-    public void setFontFamily(String t) {
-        String s = String.format("-fx-font-family: %s", t);
-        textArea.setStyle(s);
+    public void setFontFamily(String s) {
+        // String s = String.format("-fx-font-family: %s;", t);
+        try {
+            textArea.setFont(Font.font(s, Integer.parseInt(fontSizeTextField.getText())));
+
+        } catch (Exception e) {
+            textArea.setFont(Font.font(s, 12));
+        }
     }
 
     public void setPosition(double x, double y) {

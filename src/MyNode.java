@@ -23,7 +23,7 @@ public class MyNode implements Cloneable {
     public Pane pane;
     public LinkedList<MyNode> childNodes;
     public MyNode parentNode;
-    public ImageView thumbnail;
+    public ImageView thumbnail,thumbnail2;
     
     // public ScrollPane scrollPane;
     public FlowPane flowPane;
@@ -46,6 +46,10 @@ public class MyNode implements Cloneable {
         thumbnail = new ImageView("file:../img/beach.jpg");
         thumbnail.setPreserveRatio(true);
         thumbnail.setFitWidth(191);
+
+        thumbnail2 = new ImageView("file:../img/beach.jpg");
+        thumbnail2.setPreserveRatio(true);
+        thumbnail2.setFitWidth(191);
     }
 
     @Override
@@ -61,15 +65,16 @@ public class MyNode implements Cloneable {
         flowPane.setVgap(5);
 
         flowPane.setPrefWrapLength(flowPane.getPrefWidth());
-        flowPane.getChildren().addAll(childNodes.get(childNodes.size() - 1).thumbnail);
-        // myIndex.addThumbnail(new Image("beach.jpg"));
+        flowPane.getChildren().add(childNodes.get(childNodes.size() - 1).thumbnail);
+
+        pane.getChildren().add(childNodes.get(childNodes.size() - 1).thumbnail2);
+        // thumbnail2.setImage(pane.snapshot(new SnapshotParameters(), null));    
     }
 
     public void addMyImage(Image i, double x, double y) {
         myImages.add(new MyImage(i));
         myImages.get(myImages.size() - 1).setPosition(x, y);
-        pane.getChildren().addAll(myImages.get(myImages.size() - 1).imageView);
-        // thumbnail = new ImageView(pane.snapshot(new SnapshotParameters(), null));
+        pane.getChildren().addAll(myImages.get(myImages.size() - 1).imageView);    
     }
 
     public void removeAllEventHandlers() {
