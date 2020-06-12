@@ -5,6 +5,7 @@ import java.io.*;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
@@ -18,6 +19,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -30,7 +32,9 @@ import javafx.event.EventHandler;
 
 import javafx.animation.ScaleTransition;
 import javafx.animation.SequentialTransition;
+import javafx.animation.Timeline;
 import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
 import javafx.animation.ParallelTransition;
 import javafx.animation.PathTransition;
 import javafx.util.Duration;
@@ -226,40 +230,84 @@ public class MyPreziSoSexy {
     }
 
     public void zoomInChildnode(MyNode n) {
-        double f = currMyNode.pane.getHeight() / currMyNode.thumbnail2.getFitHeight();
+        n.pane.setScaleX(1);
+        n.pane.setScaleY(1);
+        n.pane.setTranslateX(0);
+        n.pane.setTranslateY(0);
+        double f = (n.pane.getBoundsInParent().getHeight() / n.thumbnail2.getBoundsInParent().getHeight());
+        double originX = n.pane.getLayoutBounds().getMinX();
+        double originY = n.pane.getLayoutBounds().getMinY();
+        double destinationX = (n.pane.getBoundsInParent().getWidth() * f
+                - n.thumbnail2.getBoundsInParent().getWidth() * f) / 2;
+        double destinationY = (n.pane.getBoundsInParent().getHeight() * f
+                - n.thumbnail2.getBoundsInParent().getHeight() * f) / 2;
 
-        // Path path = new Path(new MoveTo(500, 500),
-        //         new LineTo(
-        //                 (middlePane.getWidth() - n.thumbnail2.getFitWidth()) / 2, (middlePane.getHeight() - n.thumbnail2.getFitHeight()) / 2));
-        Path path = new Path(new MoveTo(0, 0),
-                new LineTo(
-                        (middlePane.getWidth() - n.thumbnail2.getFitWidth()) / 2, (middlePane.getHeight() - n.thumbnail2.getFitHeight()) / 2));
-        System.out.println("x = " + middlePane.getWidth() / 2 + " y = " + middlePane.getHeight() / 2);
+        double dx = (destinationX - originX) / 1000;
+        double dy = (destinationY - originY) / 1000;
+        double ds = f/1000;
 
-        PathTransition pathTransition = new PathTransition(Duration.seconds(5), path);
-        pathTransition.setCycleCount(1);
-        pathTransition.setInterpolator(Interpolator.EASE_IN);
+        EventHandler<ActionEvent> zooming = new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(final ActionEvent e) {
+                n.pane.setScaleX(n.pane.getScaleX() + ds);
+                n.pane.setScaleY(n.pane.getScaleY() + ds);
+                n.pane.setTranslateX(n.pane.getTranslateX() + dx);
+                n.pane.setTranslateY(n.pane.getTranslateY() + dy);
+            }
+        };
 
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(5));
-        scaleTransition.setByX(0);
-        scaleTransition.setByY(0);
-        scaleTransition.setCycleCount(1);
-        scaleTransition.setInterpolator(Interpolator.EASE_BOTH);
+        Timeline timelineAnimation = new Timeline(new KeyFrame(Duration.millis(5), zooming));
 
-        ParallelTransition pt = new ParallelTransition(middlePane, scaleTransition, pathTransition);
-        pt.play();
+        timelineAnimation.setCycleCount(1000);
+        timelineAnimation.play();
 
-        pt.setOnFinished(e -> {
-            n.pane.setTranslateX((middlePane.getWidth() - n.thumbnail2.getFitWidth()) / 2 - n.thumbnail2.getLayoutX());
-            n.pane.setTranslateY(
-                    (middlePane.getHeight() - n.thumbnail2.getFitHeight()) / 2 - n.thumbnail2.getLayoutY());
-            vBox.getChildren().remove(0);
-            vBox.getChildren().addAll(currMyNode.flowPane);
+        // n.pane.setScaleX(f);
+        // n.pane.setScaleY(f);
+        // n.pane.setTranslateX(destinationX - originX);
+        // n.pane.setTranslateY(destinationY - originY);
 
-            middlePane.getChildren().remove(0);
-            middlePane.getChildren().add(currMyNode.pane);
-            scrollPane.setContent(vBox);
-        });
+        // middlePane.getChildren().add(new Circle(originX, originY, 4, Color.RED));
+        // middlePane.getChildren().add(new Circle(destinationX, destinationY, 4,
+        // Color.BLUE));
+
+        // timelineAnimation.setOnFinished(e -> {
+        //     System.out.println("originX = " + originX + " originY = " + originY + "\ndestinationX = " + destinationX
+        //             + " destinationY = " + destinationY + "\nf = " + f);
+        //     System.out.println(
+        //             n.pane.getBoundsInParent().getHeight() + "  " + n.thumbnail2.getBoundsInParent().getHeight() * f);
+        //     System.out.println(n.pane.getTranslateX());
+        // });
+
+
+
+        // --------------- transition ---------------
+        // Path path = new Path(new MoveTo(originX, originY), new LineTo(destinationX,
+        // destinationY));
+        // PathTransition pathTransition = new PathTransition(Duration.seconds(5),
+        // path);
+        // pathTransition.setCycleCount(1);
+        // ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(5));
+        // scaleTransition.setByX(f);
+        // scaleTransition.setByY(f);
+        // scaleTransition.setCycleCount(1);
+        // ParallelTransition pt = new ParallelTransition(middlePane, scaleTransition,
+        // pathTransition);
+        // pt.play();
+        // --------------- transition ---------------
+
+        // timelineAnimation.setOnFinished(e -> {
+        // n.pane.setTranslateX((middlePane.getWidth() - n.thumbnail2.getFitWidth()) / 2
+        // - n.thumbnail2.getLayoutX());
+        // n.pane.setTranslateY(
+        // (middlePane.getHeight() - n.thumbnail2.getFitHeight()) / 2 -
+        // n.thumbnail2.getLayoutY());
+        // vBox.getChildren().remove(0);
+        // vBox.getChildren().addAll(currMyNode.flowPane);
+
+        // middlePane.getChildren().remove(0);
+        // middlePane.getChildren().add(currMyNode.pane);
+        // scrollPane.setContent(vBox);
+        // });
     }
 
     public void gotoMyParentNode() {

@@ -50,6 +50,7 @@ public class MyNode implements Cloneable {
         thumbnail2 = new ImageView("file:../img/beach.jpg");
         thumbnail2.setPreserveRatio(true);
         thumbnail2.setFitWidth(191);
+        thumbnail2.setFitHeight(118);
     }
 
     @Override
