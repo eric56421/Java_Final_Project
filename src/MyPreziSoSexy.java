@@ -211,7 +211,7 @@ public class MyPreziSoSexy {
     public void gotoMyChildNode(MouseEvent me) {
         for (MyNode n : currMyNode.childNodes) {
             if (n.thumbnail == me.getSource()) {
-                zoomInChildnode(currMyNode.pane);
+                zoomInChildnode(currMyNode);
                 currMyNode = n;
 
                 // vBox.getChildren().remove(0);
@@ -220,47 +220,46 @@ public class MyPreziSoSexy {
                 // middlePane.getChildren().remove(0);
                 // middlePane.getChildren().add(currMyNode.pane);
                 // scrollPane.setContent(vBox);
-
-                System.out.println("Child node found.");
                 break;
             }
         }
-        System.out.println("Jump to node : " + currMyNode);
     }
 
-    public void zoomInChildnode(Pane p) {
-        System.out.println("rootNode pane" + rootMyNode.pane);
-        System.out.println("currNode pane" + currMyNode.pane);
-        System.out.println(p);
+    public void zoomInChildnode(MyNode n) {
         double f = currMyNode.pane.getHeight() / currMyNode.thumbnail2.getFitHeight();
 
-        Path path = new Path(new MoveTo(1,1), new LineTo(p.getLayoutX(), p.getLayoutY()));
-        PathTransition pathTransition = new PathTransition(Duration.seconds(1), path);
+        // Path path = new Path(new MoveTo(500, 500),
+        //         new LineTo(
+        //                 (middlePane.getWidth() - n.thumbnail2.getFitWidth()) / 2, (middlePane.getHeight() - n.thumbnail2.getFitHeight()) / 2));
+        Path path = new Path(new MoveTo(0, 0),
+                new LineTo(
+                        (middlePane.getWidth() - n.thumbnail2.getFitWidth()) / 2, (middlePane.getHeight() - n.thumbnail2.getFitHeight()) / 2));
+        System.out.println("x = " + middlePane.getWidth() / 2 + " y = " + middlePane.getHeight() / 2);
+
+        PathTransition pathTransition = new PathTransition(Duration.seconds(5), path);
         pathTransition.setCycleCount(1);
         pathTransition.setInterpolator(Interpolator.EASE_IN);
 
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(1));
-        scaleTransition.setByX(5);
-        scaleTransition.setByY(5);
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(5));
+        scaleTransition.setByX(0);
+        scaleTransition.setByY(0);
         scaleTransition.setCycleCount(1);
-        scaleTransition.setInterpolator(Interpolator.EASE_OUT);
-        
-        ParallelTransition pt = new ParallelTransition(p, scaleTransition, pathTransition);
-        System.out.println("playing");
+        scaleTransition.setInterpolator(Interpolator.EASE_BOTH);
+
+        ParallelTransition pt = new ParallelTransition(middlePane, scaleTransition, pathTransition);
         pt.play();
 
-        st.setOnFinished(e -> {
-            System.out.println("Hi finished");
+        pt.setOnFinished(e -> {
+            n.pane.setTranslateX((middlePane.getWidth() - n.thumbnail2.getFitWidth()) / 2 - n.thumbnail2.getLayoutX());
+            n.pane.setTranslateY(
+                    (middlePane.getHeight() - n.thumbnail2.getFitHeight()) / 2 - n.thumbnail2.getLayoutY());
             vBox.getChildren().remove(0);
             vBox.getChildren().addAll(currMyNode.flowPane);
 
             middlePane.getChildren().remove(0);
-            System.out.println(middlePane.getChildren().size());
             middlePane.getChildren().add(currMyNode.pane);
             scrollPane.setContent(vBox);
-
         });
-        System.out.println("f = " + f);
     }
 
     public void gotoMyParentNode() {
