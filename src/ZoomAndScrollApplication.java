@@ -25,8 +25,8 @@ class PannableCanvas extends Pane {
         setStyle("-fx-background-color: lightgrey; -fx-border-color: blue;");
 
         // add scale transform
-        scaleXProperty().bind(myScale);
-        scaleYProperty().bind(myScale);
+        // scaleXProperty().bind(myScale);
+        // scaleYProperty().bind(myScale);
     }
 
     /**

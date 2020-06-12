@@ -63,7 +63,7 @@ public class MyPreziSoSexyController {
 
     @FXML
     void onTextButtonClicked(MouseEvent event) {
-        workspace.currentMyNode().addMyText();
+        workspace.currentMyNode().addMyText(rightBorderPane);
         // workspace.currentMyNode().pane.getChildren().addAll(new TextArea("type something here."));
     }
 
