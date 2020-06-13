@@ -229,37 +229,44 @@ public class MyPreziSoSexy {
         }
     }
 
+    double f;
+    double originX, originY;
+    double destinationX, destinationY;
+
     public void zoomInChildnode(MyNode n) {
         n.pane.setScaleX(1);
         n.pane.setScaleY(1);
         n.pane.setTranslateX(0);
         n.pane.setTranslateY(0);
-        double f = (n.pane.getBoundsInParent().getHeight() / n.thumbnail2.getBoundsInParent().getHeight());
-        double originX = n.pane.getLayoutBounds().getMinX();
-        double originY = n.pane.getLayoutBounds().getMinY();
-        double destinationX = (n.pane.getBoundsInParent().getWidth() * f
-                - n.thumbnail2.getBoundsInParent().getWidth() * f) / 2;
-        double destinationY = (n.pane.getBoundsInParent().getHeight() * f
-                - n.thumbnail2.getBoundsInParent().getHeight() * f) / 2;
+        f = (n.pane.getBoundsInParent().getHeight() / n.thumbnail2.getBoundsInParent().getHeight());
+        originX = n.pane.getLayoutBounds().getMinX();
+        originY = n.pane.getLayoutBounds().getMinY();
+        destinationX = (n.pane.getBoundsInParent().getWidth() * f - n.thumbnail2.getBoundsInParent().getWidth() * f)
+                / 2;
+        destinationY = (n.pane.getBoundsInParent().getHeight() * f - n.thumbnail2.getBoundsInParent().getHeight() * f)
+                / 2;
 
         double dx = (destinationX - originX) / 1000;
         double dy = (destinationY - originY) / 1000;
-        double ds = f/1000;
 
         EventHandler<ActionEvent> zooming = new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent e) {
-                n.pane.setScaleX(n.pane.getScaleX() + ds);
-                n.pane.setScaleY(n.pane.getScaleY() + ds);
                 n.pane.setTranslateX(n.pane.getTranslateX() + dx);
                 n.pane.setTranslateY(n.pane.getTranslateY() + dy);
             }
         };
 
-        Timeline timelineAnimation = new Timeline(new KeyFrame(Duration.millis(5), zooming));
-
+        Timeline timelineAnimation = new Timeline(new KeyFrame(Duration.millis(2), zooming));
         timelineAnimation.setCycleCount(1000);
-        timelineAnimation.play();
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(2));
+        scaleTransition.setByX(f - 1);
+        scaleTransition.setByY(f - 1);
+        scaleTransition.setCycleCount(1);
+        scaleTransition.setInterpolator(Interpolator.EASE_IN);
+
+        ParallelTransition pt = new ParallelTransition(n.pane, scaleTransition, timelineAnimation);
+        pt.play();
 
         // n.pane.setScaleX(f);
         // n.pane.setScaleY(f);
@@ -270,44 +277,27 @@ public class MyPreziSoSexy {
         // middlePane.getChildren().add(new Circle(destinationX, destinationY, 4,
         // Color.BLUE));
 
-        // timelineAnimation.setOnFinished(e -> {
-        //     System.out.println("originX = " + originX + " originY = " + originY + "\ndestinationX = " + destinationX
-        //             + " destinationY = " + destinationY + "\nf = " + f);
-        //     System.out.println(
-        //             n.pane.getBoundsInParent().getHeight() + "  " + n.thumbnail2.getBoundsInParent().getHeight() * f);
-        //     System.out.println(n.pane.getTranslateX());
+        // pt.setOnFinished(e -> {
+        // System.out.println("originX = " + originX + " originY = " + originY +
+        // "\ndestinationX = " + destinationX
+        // + " destinationY = " + destinationY + "\nf = " + f);
+        // System.out.println(
+        // n.pane.getBoundsInParent().getHeight() + " " +
+        // n.thumbnail2.getBoundsInParent().getHeight() * f);
+        // System.out.println(n.pane.getTranslateX());
         // });
 
+        pt.setOnFinished(e -> {
+            n.pane.setTranslateX((middlePane.getWidth() - n.thumbnail2.getFitWidth()) / 2 - n.thumbnail2.getLayoutX());
+            n.pane.setTranslateY(
+                    (middlePane.getHeight() - n.thumbnail2.getFitHeight()) / 2 - n.thumbnail2.getLayoutY());
+            vBox.getChildren().remove(0);
+            vBox.getChildren().addAll(currMyNode.flowPane);
 
-
-        // --------------- transition ---------------
-        // Path path = new Path(new MoveTo(originX, originY), new LineTo(destinationX,
-        // destinationY));
-        // PathTransition pathTransition = new PathTransition(Duration.seconds(5),
-        // path);
-        // pathTransition.setCycleCount(1);
-        // ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(5));
-        // scaleTransition.setByX(f);
-        // scaleTransition.setByY(f);
-        // scaleTransition.setCycleCount(1);
-        // ParallelTransition pt = new ParallelTransition(middlePane, scaleTransition,
-        // pathTransition);
-        // pt.play();
-        // --------------- transition ---------------
-
-        // timelineAnimation.setOnFinished(e -> {
-        // n.pane.setTranslateX((middlePane.getWidth() - n.thumbnail2.getFitWidth()) / 2
-        // - n.thumbnail2.getLayoutX());
-        // n.pane.setTranslateY(
-        // (middlePane.getHeight() - n.thumbnail2.getFitHeight()) / 2 -
-        // n.thumbnail2.getLayoutY());
-        // vBox.getChildren().remove(0);
-        // vBox.getChildren().addAll(currMyNode.flowPane);
-
-        // middlePane.getChildren().remove(0);
-        // middlePane.getChildren().add(currMyNode.pane);
-        // scrollPane.setContent(vBox);
-        // });
+            middlePane.getChildren().remove(0);
+            middlePane.getChildren().add(currMyNode.pane);
+            scrollPane.setContent(vBox);
+        });
     }
 
     public void gotoMyParentNode() {
@@ -325,8 +315,50 @@ public class MyPreziSoSexy {
             currMyNode = currMyNode.parentNode;
             middlePane.getChildren().remove(0);
             middlePane.getChildren().addAll(currMyNode.pane);
-            System.out.println("Jump to node : " + currMyNode);
+            zoomOutChildnode(currMyNode);
         }
+    }
+
+    public void zoomOutChildnode(MyNode n) {
+
+        n.pane.setTranslateX(0);
+        n.pane.setTranslateY(0);
+        
+        // double f = (n.thumbnail2.getBoundsInParent().getHeight() /
+        // n.pane.getBoundsInParent().getHeight());
+        // double originX = n.pane.getLayoutBounds().getMinX();
+        // double originY = n.pane.getLayoutBounds().getMinY();
+        // double destinationX = (n.pane.getBoundsInParent().getWidth() * f
+        // - n.thumbnail2.getBoundsInParent().getWidth() * f) / 2;
+        // double destinationY = (n.pane.getBoundsInParent().getHeight() * f
+        // - n.thumbnail2.getBoundsInParent().getHeight() * f) / 2;
+        
+        double dx = (destinationX - originX) / 1000;
+        double dy = (destinationY - originY) / 1000;
+        System.out.println(n.pane.getTranslateX() + " " + n.pane.getTranslateY());
+        System.out.println(dx + " " + dy);
+        
+        EventHandler<ActionEvent> zooming = new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(final ActionEvent e) {
+                n.pane.setTranslateX(n.pane.getTranslateX() - dx);
+                n.pane.setTranslateY(n.pane.getTranslateY() - dy);
+            }
+        };
+
+        // n.pane.setScaleX(1);
+        // n.pane.setScaleY(1);
+
+        Timeline timelineAnimation = new Timeline(new KeyFrame(Duration.millis(2), zooming));
+        timelineAnimation.setCycleCount(1000);
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(2));
+        scaleTransition.setByX(-3);
+        scaleTransition.setByY(-3);
+        scaleTransition.setCycleCount(1);
+        scaleTransition.setInterpolator(Interpolator.EASE_IN);
+
+        ParallelTransition pt = new ParallelTransition(n.pane, scaleTransition, timelineAnimation);
+        pt.play();
     }
 
     public boolean isRootMyNode() {
