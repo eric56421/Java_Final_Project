@@ -33,6 +33,7 @@ import javafx.event.EventHandler;
 import javafx.animation.ScaleTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.ParallelTransition;
@@ -232,6 +233,7 @@ public class MyPreziSoSexy {
     double f;
     double originX, originY;
     double destinationX, destinationY;
+    double dx, dy;
 
     public void zoomInChildnode(MyNode n) {
         n.pane.setScaleX(1);
@@ -246,8 +248,8 @@ public class MyPreziSoSexy {
         destinationY = (n.pane.getBoundsInParent().getHeight() * f - n.thumbnail2.getBoundsInParent().getHeight() * f)
                 / 2;
 
-        double dx = (destinationX - originX) / 1000;
-        double dy = (destinationY - originY) / 1000;
+        dx = (destinationX - originX) / 1000;
+        dy = (destinationY - originY) / 1000;
 
         EventHandler<ActionEvent> zooming = new EventHandler<ActionEvent>() {
             @Override
@@ -320,9 +322,19 @@ public class MyPreziSoSexy {
     }
 
     public void zoomOutChildnode(MyNode n) {
+        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(2));
+        translateTransition.setFromX(n.pane.getTranslateX()+dx*1000);
+        translateTransition.setFromY(n.pane.getTranslateY()+dy*1000);
+        translateTransition.setToX(0);
+        translateTransition.setToY(0);
+        translateTransition.setInterpolator(Interpolator.EASE_IN);
 
-        n.pane.setTranslateX(0);
-        n.pane.setTranslateY(0);
+        System.out.println("origin: " + n.pane.getTranslateX() + " " + n.pane.getTranslateY());
+        // translateTransition.setCycleCount(1);
+        // translateTransition.setInterpolator(Interpolator.EASE_IN);
+
+        // n.pane.setTranslateX(0);
+        // n.pane.setTranslateY(0);
         
         // double f = (n.thumbnail2.getBoundsInParent().getHeight() /
         // n.pane.getBoundsInParent().getHeight());
@@ -333,31 +345,32 @@ public class MyPreziSoSexy {
         // double destinationY = (n.pane.getBoundsInParent().getHeight() * f
         // - n.thumbnail2.getBoundsInParent().getHeight() * f) / 2;
         
-        double dx = (destinationX - originX) / 1000;
-        double dy = (destinationY - originY) / 1000;
-        System.out.println(n.pane.getTranslateX() + " " + n.pane.getTranslateY());
-        System.out.println(dx + " " + dy);
+        // double dx = (destinationX - originX) / 1000;
+        // double dy = (destinationY - originY) / 1000;
+        // System.out.println(n.pane.getTranslateX() + " " + n.pane.getTranslateY());
+        // System.out.println(dx + " " + dy);
         
-        EventHandler<ActionEvent> zooming = new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(final ActionEvent e) {
-                n.pane.setTranslateX(n.pane.getTranslateX() - dx);
-                n.pane.setTranslateY(n.pane.getTranslateY() - dy);
-            }
-        };
+        // EventHandler<ActionEvent> zooming = new EventHandler<ActionEvent>() {
+        //     @Override
+        //     public void handle(final ActionEvent e) {
+        //         n.pane.setTranslateX(n.pane.getTranslateX() - dx);
+        //         n.pane.setTranslateY(n.pane.getTranslateY() - dy);
+        //     }
+        // };
 
         // n.pane.setScaleX(1);
         // n.pane.setScaleY(1);
 
-        Timeline timelineAnimation = new Timeline(new KeyFrame(Duration.millis(2), zooming));
-        timelineAnimation.setCycleCount(1000);
+        // Timeline timelineAnimation = new Timeline(new KeyFrame(Duration.millis(2), zooming));
+        // timelineAnimation.setCycleCount(1000);
         ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(2));
-        scaleTransition.setByX(-3);
-        scaleTransition.setByY(-3);
+        scaleTransition.setByX(-f + 1);
+        scaleTransition.setByY(-f + 1);
         scaleTransition.setCycleCount(1);
         scaleTransition.setInterpolator(Interpolator.EASE_IN);
 
-        ParallelTransition pt = new ParallelTransition(n.pane, scaleTransition, timelineAnimation);
+        SequentialTransition st = new SequentialTransition(n.pane, scaleTransition, translateTransition);
+        ParallelTransition pt = new ParallelTransition(n.pane, scaleTransition, translateTransition);
         pt.play();
     }
 
