@@ -69,6 +69,8 @@ public class MyWidget {
         private void setNodeSize(Node node, double x, double y, double h, double w) {
             node.setLayoutX(x);
             node.setLayoutY(y);
+            // System.out.println(node.getLayoutX() + " " + node.getLayoutY() + " " + node);
+
             // TODO find generic way to set width and height of any node
             // here we cant set height and width to node directly.
             // or i just cant find how to do it,
