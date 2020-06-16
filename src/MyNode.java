@@ -20,11 +20,12 @@ import java.util.LinkedList;
 public class MyNode implements Cloneable {
     private ArrayList<MyImage> myImages; // should be replaced by MyWidget
     private ArrayList<MyText> myTexts;
+    private ArrayList<MyWidget> myWidgets;
     public Pane pane;
     public LinkedList<MyNode> childNodes;
     public MyNode parentNode;
     public ImageView thumbnail,thumbnail2;
-    
+    public MyThumbnail myThumbnail;
     // public ScrollPane scrollPane;
     public FlowPane flowPane;
 
@@ -38,6 +39,7 @@ public class MyNode implements Cloneable {
 
         myImages = new ArrayList<MyImage>();
         myTexts = new ArrayList<MyText>();
+        myWidgets = new ArrayList<MyWidget>();
         childNodes = new LinkedList<MyNode>();
         flowPane = new FlowPane();
 
@@ -47,10 +49,11 @@ public class MyNode implements Cloneable {
         thumbnail.setPreserveRatio(true);
         thumbnail.setFitWidth(191);
 
-        thumbnail2 = new ImageView("file:../img/beach.jpg");
-        thumbnail2.setPreserveRatio(true);
-        thumbnail2.setFitWidth(191);
-        thumbnail2.setFitHeight(118);
+        myThumbnail = new MyThumbnail();
+        // thumbnail2 = new ImageView("file:../img/beach.jpg");
+        // thumbnail2.setPreserveRatio(true);
+        // thumbnail2.setFitWidth(191);
+        // thumbnail2.setFitHeight(118);
     }
 
     @Override
@@ -59,8 +62,10 @@ public class MyNode implements Cloneable {
     }
 
     public void addChildNode(Pane p) { // need to give a pane with a shape
-        childNodes.add(new MyNode(p));
-        childNodes.getLast().parentNode = this;
+        MyNode tmpChildNode = new MyNode(p);
+        
+        childNodes.add(tmpChildNode);
+        tmpChildNode.parentNode = this;
 
         flowPane.setHgap(5);
         flowPane.setVgap(5);
@@ -68,7 +73,8 @@ public class MyNode implements Cloneable {
         flowPane.setPrefWrapLength(flowPane.getPrefWidth());
         flowPane.getChildren().add(childNodes.get(childNodes.size() - 1).thumbnail);
 
-        pane.getChildren().add(childNodes.get(childNodes.size() - 1).thumbnail2);
+        pane.getChildren().add(tmpChildNode.getMyThumbnail().getThumbnail());
+        // pane.getChildren().add(childNodes.get(childNodes.size() - 1).thumbnail2);
         // thumbnail2.setImage(pane.snapshot(new SnapshotParameters(), null));    
     }
 
@@ -93,5 +99,9 @@ public class MyNode implements Cloneable {
         myTexts.add(new MyText(bp));
         pane.getChildren().addAll(myTexts.get(myTexts.size() - 1).textArea);
         myTexts.get(myTexts.size() - 1).setPosition(100,100);
+    }
+
+    public MyThumbnail getMyThumbnail() {
+        return myThumbnail;
     }
 }

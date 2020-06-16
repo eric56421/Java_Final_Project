@@ -39,6 +39,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.ParallelTransition;
 import javafx.animation.PathTransition;
 import javafx.util.Duration;
+import java.util.Stack;
 
 public class MyPreziSoSexy implements Serializable {
     public MyNode rootMyNode;
@@ -218,7 +219,7 @@ public class MyPreziSoSexy implements Serializable {
     public void gotoMyChildNode(MouseEvent me) {
         for (MyNode n : currMyNode.childNodes) {
             if (n.thumbnail == me.getSource()) {
-                zoomInChildnode(currMyNode);
+                zoomInChildnode(currMyNode, n);
                 currMyNode = n;
 
                 // vBox.getChildren().remove(0);
@@ -229,47 +230,72 @@ public class MyPreziSoSexy implements Serializable {
                 // scrollPane.setContent(vBox);
                 break;
             }
+
         }
     }
 
     double f;
     double originX, originY;
-    double destinationX, destinationY;
+    Stack<Double> destinationX = new Stack<Double>(),  destinationY = new Stack<Double>();
     double dx, dy;
 
-    public void zoomInChildnode(MyNode n) {
-        n.pane.setScaleX(1);
-        n.pane.setScaleY(1);
-        n.pane.setTranslateX(0);
-        n.pane.setTranslateY(0);
+    private void zoomPreprocess(MyNode fromNode, MyThumbnail target) {
+        Pane p = new Pane();
+        f = (fromNode.pane.getBoundsInParent().getHeight() / target.getThumbnail().getBoundsInParent().getHeight());
+        System.out.println(fromNode);
+        originX = fromNode.pane.getTranslateX();
+        originY = fromNode.pane.getTranslateY();
 
-        f = (n.pane.getBoundsInParent().getHeight() / n.thumbnail2.getBoundsInParent().getHeight());
-        originX = n.pane.getLayoutBounds().getMinX();
-        originY = n.pane.getLayoutBounds().getMinY();
-        destinationX = (n.pane.getBoundsInParent().getWidth() * f - n.thumbnail2.getBoundsInParent().getWidth() * f)
-                / 2;
-        destinationY = (n.pane.getBoundsInParent().getHeight() * f - n.thumbnail2.getBoundsInParent().getHeight() * f)
-                / 2;
+        double thumbnailX = target.getThumbnail().getLayoutX();
+        double thumbnailY = target.getThumbnail().getLayoutY();
+
+        double destX = ((fromNode.pane.getBoundsInParent().getWidth()) * f
+                - ((target.getThumbnail().getBoundsInParent().getWidth()) * f)) / 2 - thumbnailX * f;
+        double destY = ((fromNode.pane.getBoundsInParent().getHeight()) * f
+                - (target.getThumbnail().getBoundsInParent().getHeight()) * f) / 2 - thumbnailY * f;
+
+        destinationX.push(Double.valueOf(destX));
+        destinationY.push(Double.valueOf(destY));
+
+        // destinationX = ((fromNode.pane.getBoundsInParent().getWidth()) * f
+        //         - ((target.getThumbnail().getBoundsInParent().getWidth()) * f)) / 2;
+        // destinationY = ((fromNode.pane.getBoundsInParent().getHeight()) * f
+        //         - (target.getThumbnail().getBoundsInParent().getHeight()) * f) / 2;
+
+        System.out.println("x = " + originX + " y = " + originY);
+        System.out.println("x = " + destinationX + " y = " + destinationY);
+    }
+
+    public void zoomInChildnode(MyNode fromNode, MyNode toNode) {
+        MyThumbnail targetThumbnail = toNode.getMyThumbnail();
+
+        fromNode.pane.setScaleX(1);
+        fromNode.pane.setScaleY(1);
+        fromNode.pane.setTranslateX(0);
+        fromNode.pane.setTranslateY(0);
+
+        zoomPreprocess(fromNode, targetThumbnail);
 
         TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(2));
-        translateTransition.setFromX(originX);
-        translateTransition.setFromY(originY);
-        translateTransition.setToX(destinationX);
-        translateTransition.setToY(destinationY);
+        translateTransition.setFromX(0);
+        translateTransition.setFromY(0);
+        translateTransition.setToX(destinationX.peek().doubleValue());
+        translateTransition.setToY(destinationY.peek().doubleValue());
         // translateTransition.setInterpolator(Interpolator.EASE_IN);
-        
+
         // dx = (destinationX - originX) / 1000;
         // dy = (destinationY - originY) / 1000;
 
         // EventHandler<ActionEvent> zooming = new EventHandler<ActionEvent>() {
-        //     @Override
-        //     public void handle(final ActionEvent e) {
-        //         n.pane.setTranslateX(n.pane.getTranslateX() + dx);
-        //         n.pane.setTranslateY(n.pane.getTranslateY() + dy);
-        //     }
+        // @Override
+        // public void handle(final ActionEvent e) {
+        // n.pane.setTranslateX(n.pane.getTranslateX() + dx);
+        // n.pane.setTranslateY(n.pane.getTranslateY() + dy);
+        // }
         // };
 
-        // Timeline timelineAnimation = new Timeline(new KeyFrame(Duration.millis(2), zooming));
+        // Timeline timelineAnimation = new Timeline(new KeyFrame(Duration.millis(2),
+        // zooming));
         // timelineAnimation.setCycleCount(1000);
         ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(2));
         scaleTransition.setByX(f - 1);
@@ -277,7 +303,7 @@ public class MyPreziSoSexy implements Serializable {
         scaleTransition.setCycleCount(1);
         // scaleTransition.setInterpolator(Interpolator.EASE_IN);
 
-        ParallelTransition pt = new ParallelTransition(n.pane, scaleTransition, translateTransition);
+        ParallelTransition pt = new ParallelTransition(fromNode.pane, scaleTransition, translateTransition);
         pt.play();
 
         // n.pane.setScaleX(f);
@@ -300,9 +326,11 @@ public class MyPreziSoSexy implements Serializable {
         // });
 
         pt.setOnFinished(e -> {
-            n.pane.setTranslateX((middlePane.getWidth() - n.thumbnail2.getFitWidth()) / 2 - n.thumbnail2.getLayoutX());
-            n.pane.setTranslateY(
-                    (middlePane.getHeight() - n.thumbnail2.getFitHeight()) / 2 - n.thumbnail2.getLayoutY());
+            fromNode.pane.setTranslateX((middlePane.getWidth() - targetThumbnail.getThumbnail().getFitWidth()) / 2
+                    - targetThumbnail.getThumbnail().getLayoutX());
+            fromNode.pane.setTranslateY((middlePane.getHeight() - targetThumbnail.getThumbnail().getFitHeight()) / 2
+                    - targetThumbnail.getThumbnail().getLayoutY());
+
             vBox.getChildren().remove(0);
             vBox.getChildren().addAll(currMyNode.flowPane);
 
@@ -318,9 +346,10 @@ public class MyPreziSoSexy implements Serializable {
             vBox.getChildren().addAll(currMyNode.parentNode.flowPane);
 
             currMyNode.thumbnail.setImage(currMyNode.pane.snapshot(new SnapshotParameters(), null));
-            currMyNode.parentNode.pane.getChildren().remove(currMyNode.thumbnail2);
-            currMyNode.thumbnail2.setImage(currMyNode.pane.snapshot(new SnapshotParameters(), null));
-            currMyNode.parentNode.pane.getChildren().add(currMyNode.thumbnail2);
+            // currMyNode.parentNode.pane.getChildren().remove(currMyNode.thumbnail2);
+            currMyNode.getMyThumbnail().getThumbnail()
+                    .setImage(currMyNode.pane.snapshot(new SnapshotParameters(), null));
+            // currMyNode.parentNode.pane.getChildren().add(currMyNode.thumbnail2);
             // currMyNode.parentNode.addMyImage(currMyNode.pane.snapshot(new
             // SnapshotParameters(), null), 0, 0);
 
@@ -333,10 +362,10 @@ public class MyPreziSoSexy implements Serializable {
 
     public void zoomOutChildnode(MyNode n) {
         TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(2));
-        translateTransition.setFromX(destinationX);
-        translateTransition.setFromY(destinationY);
-        translateTransition.setToX(originX);
-        translateTransition.setToY(originY);
+        translateTransition.setFromX(destinationX.pop().doubleValue());
+        translateTransition.setFromY(destinationY.pop().doubleValue());
+        translateTransition.setToX(0);
+        translateTransition.setToY(0);
         translateTransition.setInterpolator(Interpolator.EASE_IN);
 
         ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(2));
@@ -346,7 +375,8 @@ public class MyPreziSoSexy implements Serializable {
         scaleTransition.setInterpolator(Interpolator.EASE_IN);
 
         // Star
-        //SequentialTransition st = new SequentialTransition(n.pane, scaleTransition, translateTransition);
+        // SequentialTransition st = new SequentialTransition(n.pane, scaleTransition,
+        // translateTransition);
         ParallelTransition pt = new ParallelTransition(n.pane, scaleTransition, translateTransition);
         pt.play();
     }
