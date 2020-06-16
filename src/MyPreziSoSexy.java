@@ -40,8 +40,8 @@ import javafx.animation.ParallelTransition;
 import javafx.animation.PathTransition;
 import javafx.util.Duration;
 
-public class MyPreziSoSexy {
-    private MyNode rootMyNode;
+public class MyPreziSoSexy implements Serializable {
+    public MyNode rootMyNode;
 
     // need to add a function that switch currMyNode;
     private MyNode currMyNode;
@@ -55,6 +55,8 @@ public class MyPreziSoSexy {
 
     double mouseAnchorX = 0, mouseAnchorY = 0;
     double translateAnchorX = 0, translateAnchorY = 0;
+
+    private static final long serialVersionUID = 1L;
 
     // all parametors are from FXML
     public MyPreziSoSexy(VBox vb, Pane p1, BorderPane bp2, ScrollPane sp, ButtonBar bB) {
@@ -372,4 +374,7 @@ public class MyPreziSoSexy {
         middlePane.getChildren().add(node);
     }
 
+    public String toString() {
+        return "hiTeeString";
+    }
 }
