@@ -240,9 +240,7 @@ public class MyPreziSoSexy implements Serializable {
     double dx, dy;
 
     private void zoomPreprocess(MyNode fromNode, MyThumbnail target) {
-        Pane p = new Pane();
         f = (fromNode.pane.getBoundsInParent().getHeight() / target.getThumbnail().getBoundsInParent().getHeight());
-        System.out.println(fromNode);
         originX = fromNode.pane.getTranslateX();
         originY = fromNode.pane.getTranslateY();
 
@@ -256,11 +254,6 @@ public class MyPreziSoSexy implements Serializable {
 
         destinationX.push(Double.valueOf(destX));
         destinationY.push(Double.valueOf(destY));
-
-        // destinationX = ((fromNode.pane.getBoundsInParent().getWidth()) * f
-        //         - ((target.getThumbnail().getBoundsInParent().getWidth()) * f)) / 2;
-        // destinationY = ((fromNode.pane.getBoundsInParent().getHeight()) * f
-        //         - (target.getThumbnail().getBoundsInParent().getHeight()) * f) / 2;
 
         System.out.println("x = " + originX + " y = " + originY);
         System.out.println("x = " + destinationX + " y = " + destinationY);
@@ -283,20 +276,6 @@ public class MyPreziSoSexy implements Serializable {
         translateTransition.setToY(destinationY.peek().doubleValue());
         // translateTransition.setInterpolator(Interpolator.EASE_IN);
 
-        // dx = (destinationX - originX) / 1000;
-        // dy = (destinationY - originY) / 1000;
-
-        // EventHandler<ActionEvent> zooming = new EventHandler<ActionEvent>() {
-        // @Override
-        // public void handle(final ActionEvent e) {
-        // n.pane.setTranslateX(n.pane.getTranslateX() + dx);
-        // n.pane.setTranslateY(n.pane.getTranslateY() + dy);
-        // }
-        // };
-
-        // Timeline timelineAnimation = new Timeline(new KeyFrame(Duration.millis(2),
-        // zooming));
-        // timelineAnimation.setCycleCount(1000);
         ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(2));
         scaleTransition.setByX(f - 1);
         scaleTransition.setByY(f - 1);
@@ -305,25 +284,6 @@ public class MyPreziSoSexy implements Serializable {
 
         ParallelTransition pt = new ParallelTransition(fromNode.pane, scaleTransition, translateTransition);
         pt.play();
-
-        // n.pane.setScaleX(f);
-        // n.pane.setScaleY(f);
-        // n.pane.setTranslateX(destinationX - originX);
-        // n.pane.setTranslateY(destinationY - originY);
-
-        // middlePane.getChildren().add(new Circle(originX, originY, 4, Color.RED));
-        // middlePane.getChildren().add(new Circle(destinationX, destinationY, 4,
-        // Color.BLUE));
-
-        // pt.setOnFinished(e -> {
-        // System.out.println("originX = " + originX + " originY = " + originY +
-        // "\ndestinationX = " + destinationX
-        // + " destinationY = " + destinationY + "\nf = " + f);
-        // System.out.println(
-        // n.pane.getBoundsInParent().getHeight() + " " +
-        // n.thumbnail2.getBoundsInParent().getHeight() * f);
-        // System.out.println(n.pane.getTranslateX());
-        // });
 
         pt.setOnFinished(e -> {
             fromNode.pane.setTranslateX((middlePane.getWidth() - targetThumbnail.getThumbnail().getFitWidth()) / 2
@@ -391,7 +351,7 @@ public class MyPreziSoSexy implements Serializable {
         return currMyNode;
     }
 
-    public void showMySexyPrezi() throws CloneNotSupportedException {
+    public void showMySexyPrezi() {
         // this.middlePane = null;
         // write a setup function
         Node node = middlePane.getChildren().get(0);
