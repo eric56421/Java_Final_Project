@@ -75,19 +75,30 @@ public class ShowMySexyPrezi {
     public void gotoNextNode(ArrayList<ShowNode> list) {
         switch (list.dir) {
             case 1: // to child
-                zoomInChildnode(list.slide[iterator], list.slide[iterator + 1]);
+                zoomInChildnode(list.slide[iterator], list.slide[++iterator]);
                 break;
             case 2: // to parent
-                zoomOutChildnode();
+                zoomOutChildnode(list.slide[iterator], list.slide[++iterator]);
                 break;
             case 3: // to child transient
-                int i = iterator + 1;
 
-                while (list.dir[i] == 3) {
-                    i++;
+                while (list.dir[iterator] == 3 || list.dir[iterator] == 4) {
+                    if(list.dir[iterator] == 3){
+                        zoomInChildnode(list.slide[iterator],list.slide[++iterator]);
+                    }else{
+                        zoomOutChildnode(list.slide[iterator],list.slide[++iterator]);
+                    }
                 }
-                zoomOutChildnode();
+                break;
             case 4: // to parent transient
+                while (list.dir[iterator] == 3 || list.dir[iterator] == 4) {
+                    if (list.dir[iterator] == 3) {
+                        zoomInChildnode(list.slide[iterator], list.slide[++iterator]);
+                    } else {
+                        zoomOutChildnode(list.slide[iterator], list.slide[++iterator]);
+                    }
+                }
+                break;
         }
     }
 
