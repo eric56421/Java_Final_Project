@@ -35,7 +35,7 @@ public class MyPreziSoSexyController {
     @FXML
     private BorderPane rightBorderPane;
 
-    MyPreziSoSexy workspace;
+    public MyPreziSoSexy workspace;
 
     public void initialize() {
         workspace = new MyPreziSoSexy(vBox, middlePane, rightBorderPane, scrollPane, buttonBar);
@@ -61,6 +61,8 @@ public class MyPreziSoSexyController {
         }
     }
 
+
+
     @FXML
     void onTextButtonClicked(MouseEvent event) {
         workspace.currentMyNode().addMyText(rightBorderPane);
@@ -74,7 +76,41 @@ public class MyPreziSoSexyController {
 
     @FXML
     void onOpenMenuItemPressed(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        // fileChooser.getExtensionFilters().addAll(new ExtensionFilter);
+        File f = fileChooser.showOpenDialog(new Stage());
+        if (f != null) {
+            try {
 
+                FileInputStream fileIn = new FileInputStream(f);
+                ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+
+                workspace = (MyPreziSoSexy) objectIn.readObject();
+
+                System.out.println("The Object has been read from the file");
+                objectIn.close();
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    void onSaveMenuItemPressed(ActionEvent event) {
+        String filepath = "D:\\CODE\\Java\\Java_Final_Project";
+        try {
+            File file = new File(filepath, "Iam.soSexy");
+            FileOutputStream fileOut = new FileOutputStream(file);
+            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+            objectOut.writeObject(workspace);
+            objectOut.close();
+            System.out.println("The Object  was succesfully written to a file");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("So sexy.");
+        }
     }
 
     @FXML
