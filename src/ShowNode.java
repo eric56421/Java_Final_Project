@@ -11,8 +11,8 @@ public class ShowNode {
     public double destY;
     // public boolean isTansisent;
 
-    public ShowNode(ImageView slide, int dir, double f, double destX, double destY) {
-        this.slide = slide;
+    public ShowNode(ImageView thumbnail, int dir, double f, double destX, double destY) {
+        this.slide = new ImageView(thumbnail.getImage());
         this.dir = dir;
         this.f = f;
         this.destX = destX;
