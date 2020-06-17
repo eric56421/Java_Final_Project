@@ -170,12 +170,13 @@ public class ShowMySexyPrezi {
         slides.append(new ShowNode(currNode.getMyThumbnail().getThumbnail(), f, destX, destY));
         for (MyNode childNode : currNode) {
             // f, destX, destY
-            double tmpF = (currNode.pane.getBoundsInParent().getHeight() / childNode.getMyThumbnail().getThumbnail().getBoundsInParent().getHeight());
+            MyThumbnail target = childNode.getMyThumbnail();
+            double tmpF = (currNode.pane.getBoundsInParent().getHeight() / target.getThumbnail().getBoundsInParent().getHeight());
             double thumbnailX = target.getThumbnail().getLayoutX();
             double thumbnailY = target.getThumbnail().getLayoutY();
-            double tmpDestX = ((fromNode.pane.getBoundsInParent().getWidth()) * f
+            double tmpDestX = ((currNode.pane.getBoundsInParent().getWidth()) * f
                 - ((target.getThumbnail().getBoundsInParent().getWidth()) * f)) / 2 - thumbnailX * f;
-            double tmpDestY = ((fromNode.pane.getBoundsInParent().getHeight()) * f
+            double tmpDestY = ((currNode.pane.getBoundsInParent().getHeight()) * f
                 - (target.getThumbnail().getBoundsInParent().getHeight()) * f) / 2 - thumbnailY * f;
             
             constructTree(childNode, tmpF, tmpDestX, tmpDestY);
