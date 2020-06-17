@@ -1,5 +1,7 @@
 
 // import MyNode.MyNode;
+import java.util.ArrayList;
+
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
@@ -20,10 +22,12 @@ public class ShowMySexyPrezi {
     private double windowWidth;
     private double windowHeight;
     public Pane pane;
-
-    // private boolean needToExit;
+    private ArrayList<ShowNode> slides;
 
     public ShowMySexyPrezi(MyNode rootMyNode) {
+        slides = new ArrayList<ShowNode>();
+        constructTree();
+
         // this.rootMyNode = (MyNode) rootMyNode.clone();
         currMyNode = rootMyNode;
 
@@ -151,6 +155,22 @@ public class ShowMySexyPrezi {
 
     }
 
+    private void constructTree(MyNode currNode, double f, double destX, double destY) {
+        slides.append(new ShowNode(currNode.getMyThumbnail().getThumbnail(), f, destX, destY));
+        for (MyNode childNode : currNode) {
+            // f, destX, destY
+            double tmpF = (currNode.pane.getBoundsInParent().getHeight() / childNode.getMyThumbnail().getThumbnail().getBoundsInParent().getHeight());
+            double thumbnailX = target.getThumbnail().getLayoutX();
+            double thumbnailY = target.getThumbnail().getLayoutY();
+            double tmpDestX = ((fromNode.pane.getBoundsInParent().getWidth()) * f
+                - ((target.getThumbnail().getBoundsInParent().getWidth()) * f)) / 2 - thumbnailX * f;
+            double tmpDestY = ((fromNode.pane.getBoundsInParent().getHeight()) * f
+                - (target.getThumbnail().getBoundsInParent().getHeight()) * f) / 2 - thumbnailY * f;
+            
+            constructTree(childNode, tmpF, tmpDestX, tmpDestY);
+            slides.append(new ShowNode(currNode.getMyThumbnail().getThumbanil(), f, destX, destY));
+        }
+    }
     // private void exitShow() {
 
     // }
