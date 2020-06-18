@@ -31,19 +31,20 @@ public class ShowMySexyPrezi {
     private ArrayList<ShowNode> slides;
 
     public ShowMySexyPrezi(MyNode rootMyNode) {
+        this.rootMyNode = rootMyNode;
         slides = new ArrayList<ShowNode>();
+        
         constructTree(rootMyNode, 1, 1, 1);
-
-        // this.rootMyNode = (MyNode) rootMyNode.clone();
+        
         // --- new a window ---
         windowWidth = Screen.getPrimary().getBounds().getWidth();
         windowHeight = Screen.getPrimary().getBounds().getHeight();
         pane = new Pane();
         pane.setPrefSize(windowWidth, windowHeight);
-        for (ShowNode s : slides) {
-            s.slide.setFitWidth(windowWidth);
-            s.slide.setFitHeight(windowHeight);
-        }
+        // for (ShowNode s : slides) {
+        //     s.slide.setFitWidth(windowWidth);
+        //     s.slide.setFitHeight(windowHeight);
+        // }
         scene = new Scene(pane, windowWidth, windowHeight);
         pane.getChildren().add(slides.get(0).slide);
         try {
@@ -57,9 +58,9 @@ public class ShowMySexyPrezi {
 
         // --- set the window as fullscreen ---
         showWindow.setMaximized(true);
+        showWindow.setFullScreen(true);
         // showWindow.setFullScreenExitHint("");
         // showWindow.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-        showWindow.setFullScreen(true);
 
         // --- register the event handlers ---
         // rootMyNode.removeAllEventHandlers();
@@ -87,29 +88,26 @@ public class ShowMySexyPrezi {
     public void gotoNextNode() {
         switch (slides.get(iterator).dir) {
             case 1: // to child
+                System.out.println("iterator" + iterator);
                 zoomInChildnode(slides.get(iterator), slides.get(++iterator));
+                System.out.println("++iterator" + iterator);
                 break;
             case 2: // to parent
                 zoomOutChildnode(slides.get(iterator), slides.get(++iterator));
                 break;
             case 3: // to child transient
-
-                while (slides.size() > iterator && slides.get(iterator).dir == 3 || slides.get(iterator).dir == 4) {
-                    if (slides.get(iterator).dir == 3) {
-                        zoomInChildnode(slides.get(iterator), slides.get(++iterator));
-                    } else {
-                        zoomOutChildnode(slides.get(iterator), slides.get(++iterator));
-                    }
-                }
+                zoomInChildnode(slides.get(iterator), slides.get(++iterator));
+                gotoNextNode();
                 break;
             case 4: // to parent transient
-                while (slides.size() > iterator && slides.get(iterator).dir == 3 || slides.get(iterator).dir == 4) {
-                    if (slides.get(iterator).dir == 3) {
-                        zoomInChildnode(slides.get(iterator), slides.get(++iterator));
-                    } else {
-                        zoomOutChildnode(slides.get(iterator), slides.get(++iterator));
-                    }
-                }
+                zoomOutChildnode(slides.get(iterator), slides.get(++iterator));
+                gotoNextNode();                
+                break;
+            case 5:
+                slides.get(iterator).setDir(6);
+                break;
+            case 6:
+                showWindow.close();
                 break;
         }
     }
@@ -135,8 +133,10 @@ public class ShowMySexyPrezi {
         scaleTransition.setCycleCount(1);
         // scaleTransition.setInterpolator(Interpolator.EASE_IN);
 
+        System.out.println("Before" + fromNode.slide.getScaleX());
         ParallelTransition pt = new ParallelTransition(fromNode.slide, scaleTransition, translateTransition);
         pt.play();
+        System.out.println("After" + fromNode.slide.getScaleX());
 
         pt.setOnFinished(e -> {
             pane.getChildren().remove(0);
@@ -161,9 +161,6 @@ public class ShowMySexyPrezi {
         scaleTransition.setCycleCount(1);
         scaleTransition.setInterpolator(Interpolator.EASE_IN);
 
-        // Star
-        // SequentialTransition st = new SequentialTransition(n.pane, scaleTransition,
-        // translateTransition);
         ParallelTransition pt = new ParallelTransition(toNode.slide, scaleTransition, translateTransition);
         pt.play();
     }
@@ -173,11 +170,13 @@ public class ShowMySexyPrezi {
         return;
     }
 
+    // 1->to child;  2-> to parent; 3 -> to child transient; 4-> to parent transient
     private void constructTree(MyNode currNode, double f, double destX, double destY) {
         if (currNode.childNodes.size() == 0) {
             slides.add(new ShowNode(currNode.getMyThumbnail().getThumbnail(), 4, f, destX, destY));
             return;
         }
+
         slides.add(new ShowNode(currNode.getMyThumbnail().getThumbnail(), 1, f, destX, destY));
         for (MyNode childNode : currNode.childNodes) {
             // f, destX, destY
@@ -192,8 +191,18 @@ public class ShowMySexyPrezi {
                     - target.getThumbnail().getBoundsInParent().getHeight()) / 2 - thumbnailY) * tmpF;
 
             constructTree(childNode, tmpF, tmpDestX, tmpDestY);
-            slides.add(new ShowNode(currNode.getMyThumbnail().getThumbnail(), 3, f, destX, destY));
+            slides.add(new ShowNode(currNode.getMyThumbnail().getThumbnail(), 1, f, destX, destY));
         }
+
+        if (currNode != rootMyNode)
+            slides.get(slides.size()-1).setDir(2);
+        else
+            slides.get(slides.size()-1).setDir(5);
+        
+        for (ShowNode n : slides) {
+            System.out.print(n.dir);
+        }
+        System.out.println(" Breaking~");
     }
     // private void exitShow() {
 

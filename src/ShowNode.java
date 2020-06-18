@@ -3,7 +3,7 @@ import javafx.scene.image.ImageView;
 public class ShowNode {
     public int dir;
     // Next step
-    // 1->to child;  2-> to parent; 3 -> to child transient; 4-> to parent transient
+    // 1->to child;  2-> to parent; 3 -> to child transient; 4-> to parent transient; 5-> exit show
     // should change to enum
     public ImageView slide;
     public double f;
@@ -21,5 +21,9 @@ public class ShowNode {
 
     public ImageView getSlide() {
         return slide;
+    }
+
+    public void setDir(int dir) {
+        this.dir = dir;
     }
 }
