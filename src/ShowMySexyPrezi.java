@@ -41,10 +41,10 @@ public class ShowMySexyPrezi {
         windowHeight = Screen.getPrimary().getBounds().getHeight();
         pane = new Pane();
         pane.setPrefSize(windowWidth, windowHeight);
-        // for (ShowNode s : slides) {
-        //     s.slide.setFitWidth(windowWidth);
-        //     s.slide.setFitHeight(windowHeight);
-        // }
+        for (ShowNode s : slides) {
+            s.slide.setFitWidth(windowWidth);
+            s.slide.setFitHeight(windowHeight);
+        }
         scene = new Scene(pane, windowWidth, windowHeight);
         pane.getChildren().add(slides.get(0).slide);
         try {
@@ -156,8 +156,8 @@ public class ShowMySexyPrezi {
         translateTransition.setInterpolator(Interpolator.EASE_IN);
 
         ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(1));
-        scaleTransition.setByX(-f + 1);
-        scaleTransition.setByY(-f + 1);
+        scaleTransition.setByX(-toNode.f + 1);
+        scaleTransition.setByY(-toNode.f + 1);
         scaleTransition.setCycleCount(1);
         scaleTransition.setInterpolator(Interpolator.EASE_IN);
 
