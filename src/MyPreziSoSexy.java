@@ -247,16 +247,16 @@ public class MyPreziSoSexy implements Serializable {
         double thumbnailX = target.getThumbnail().getLayoutX();
         double thumbnailY = target.getThumbnail().getLayoutY();
 
-        double destX = ((fromNode.pane.getBoundsInParent().getWidth()) * f
-                - ((target.getThumbnail().getBoundsInParent().getWidth()) * f)) / 2 - thumbnailX * f;
-        double destY = ((fromNode.pane.getBoundsInParent().getHeight()) * f
-                - (target.getThumbnail().getBoundsInParent().getHeight()) * f) / 2 - thumbnailY * f;
+        double destX = ((fromNode.pane.getBoundsInParent().getWidth()
+                - target.getThumbnail().getBoundsInParent().getWidth()) / 2 - thumbnailX) * f;
+        double destY = ((fromNode.pane.getBoundsInParent().getHeight()
+                - target.getThumbnail().getBoundsInParent().getHeight()) / 2 - thumbnailY) * f;
 
         destinationX.push(Double.valueOf(destX));
         destinationY.push(Double.valueOf(destY));
 
-        System.out.println("x = " + originX + " y = " + originY);
-        System.out.println("x = " + destinationX + " y = " + destinationY);
+        // System.out.println("x = " + originX + " y = " + originY);
+        System.out.println("x = " + destinationX + "\n y = " + destinationY);
     }
 
     public void zoomInChildnode(MyNode fromNode, MyNode toNode) {
@@ -352,6 +352,7 @@ public class MyPreziSoSexy implements Serializable {
     }
 
     public void showMySexyPrezi() {
+        rootMyNode.getMyThumbnail().getThumbnail().setImage(rootMyNode.pane.snapshot(new SnapshotParameters(), null));
         // this.middlePane = null;
         // write a setup function
         Node node = middlePane.getChildren().get(0);
