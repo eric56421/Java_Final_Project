@@ -18,10 +18,10 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class MyNode implements Cloneable {
+    public Pane pane;
     private ArrayList<MyImage> myImages; // should be replaced by MyWidget
     private ArrayList<MyText> myTexts;
     private ArrayList<MyWidget> myWidgets;
-    public Pane pane;
     public LinkedList<MyNode> childNodes;
     public MyNode parentNode;
     public ImageView thumbnail,thumbnail2;

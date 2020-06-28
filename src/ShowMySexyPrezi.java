@@ -29,6 +29,7 @@ public class ShowMySexyPrezi {
     private double windowHeight;
     public Pane pane;
     private ArrayList<ShowNode> slides;
+    private int iterator = 0;
 
     public ShowMySexyPrezi(MyNode rootMyNode) {
         this.rootMyNode = rootMyNode;
@@ -78,12 +79,6 @@ public class ShowMySexyPrezi {
             }
         });
     }
-
-    double f;
-    double originX, originY;
-    Stack<Double> destinationX = new Stack<Double>(), destinationY = new Stack<Double>();
-    double dx, dy;
-    int iterator = 0;
 
     public void gotoNextNode() {
         switch (slides.get(iterator).dir) {
