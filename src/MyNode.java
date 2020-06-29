@@ -18,16 +18,13 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class MyNode implements Cloneable {
-    public Pane pane;
-    private ArrayList<MyImage> myImages; // should be replaced by MyWidget
-    private ArrayList<MyText> myTexts;
     private ArrayList<MyWidget> myWidgets;
     public LinkedList<MyNode> childNodes;
     public MyNode parentNode;
+    public Pane pane;
+    public FlowPane flowPane;
     public ImageView thumbnail,thumbnail2;
     public MyThumbnail myThumbnail;
-    // public ScrollPane scrollPane;
-    public FlowPane flowPane;
 
     public MyNode(Pane p) {
         this.pane = p;
@@ -37,8 +34,6 @@ public class MyNode implements Cloneable {
 
         pane.setBackground(new Background(new BackgroundFill(Color.RED, null, null)));        
 
-        myImages = new ArrayList<MyImage>();
-        myTexts = new ArrayList<MyText>();
         myWidgets = new ArrayList<MyWidget>();
         childNodes = new LinkedList<MyNode>();
         flowPane = new FlowPane();
@@ -79,9 +74,9 @@ public class MyNode implements Cloneable {
     }
 
     public void addMyImage(Image i, double x, double y) {
-        myImages.add(new MyImage(i));
-        myImages.get(myImages.size() - 1).setPosition(x, y);
-        pane.getChildren().addAll(myImages.get(myImages.size() - 1).imageView);    
+        myWidgets.add(new MyImage(i));
+        ( (MyImage)myWidgets.get(myWidgets.size() - 1)).setPosition(x, y);
+        pane.getChildren().addAll(( (MyImage)myWidgets.get(myWidgets.size() - 1)).imageView);    
     }
 
     public void removeAllEventHandlers() {
@@ -90,15 +85,14 @@ public class MyNode implements Cloneable {
         pane.removeEventHandler(ScrollEvent.ANY, pane.getOnScroll());
         pane.removeEventHandler(MouseEvent.ANY, pane.getOnMouseDragged());
         pane.removeEventHandler(MouseEvent.ANY, pane.getOnMousePressed());
-        // pane.geton
         for (int i=0; i<childNodes.size(); i++)
             childNodes.get(i).removeAllEventHandlers();
     }
 
     public void addMyText(BorderPane bp) {
-        myTexts.add(new MyText(bp));
-        pane.getChildren().addAll(myTexts.get(myTexts.size() - 1).textArea);
-        myTexts.get(myTexts.size() - 1).setPosition(100,100);
+        myWidgets.add(new MyText(bp));
+        pane.getChildren().addAll(( (MyText)myWidgets.get(myWidgets.size() - 1)).textArea);
+        ( (MyText)myWidgets.get(myWidgets.size() - 1)).setPosition(100,100);
     }
 
     public MyThumbnail getMyThumbnail() {
