@@ -104,7 +104,8 @@ public class MyXML {
             Element rootElement = document.getRootElement();
 
             addMyWidgetsFromXML(rootElement.element("MyWidgets"), rootMyNode);
-            addChildNodesFromXML(rootElement.element("childNodes"), rootMyNode);
+            workspace.currMyNode = rootMyNode;
+            addChildNodesFromXML(workspace, rootElement.element("childNodes"), rootMyNode);
         }
         catch (DocumentException e) {
             e.printStackTrace();
@@ -141,10 +142,8 @@ public class MyXML {
 
         System.out.println(childNodesElement.attribute("num"));
         for (Element childNodeElement : childNodesElements) {
-            Pane p = new Pane();
-            myNode.addChildNode(p);
+            workspace.addChildMyNode();
 
-            // workspace.addChildMyNode();
             MyNode childNode = myNode.childNodes.getLast();
             // System.out.println("From XML:" + childNode);
 

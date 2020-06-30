@@ -45,7 +45,7 @@ public class MyPreziSoSexy implements Serializable {
     public MyNode rootMyNode;
 
     // need to add a function that switch currMyNode;
-    private MyNode currMyNode;
+    public MyNode currMyNode;
 
     public BorderPane rightBorderPane;
     public Pane middlePane;

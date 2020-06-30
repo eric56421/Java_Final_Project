@@ -76,7 +76,7 @@ public class MyPreziSoSexyController {
 
     @FXML
     void onOpenMenuItemPressed(ActionEvent event) {
-        workspace.rootMyNode = MyXML.load("D:/", "IAmSoSexy");
+        workspace.rootMyNode = MyXML.load("D:/", "IAmSoSexy", workspace);
         // FileChooser fileChooser = new FileChooser();
         // // fileChooser.getExtensionFilters().addAll(new ExtensionFilter);
         // File f = fileChooser.showOpenDialog(new Stage());
@@ -99,8 +99,13 @@ public class MyPreziSoSexyController {
 
     @FXML
     void onSaveMenuItemPressed(ActionEvent event) {
+        try {
         MyXML.save(workspace.rootMyNode, "IAmSoSexy");
-        
+        }
+        catch (Exception e) {
+            System.out.println("i");
+            e.printStackTrace();
+        }
         
         // String filepath = "D:/CODE\\Java\\Java_Final_Project";
         // try {
