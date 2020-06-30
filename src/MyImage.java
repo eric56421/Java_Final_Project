@@ -19,4 +19,8 @@ public class MyImage extends MyWidget {
         imageView.setLayoutX(x - image.getWidth() / 2);
         imageView.setLayoutY(y - image.getHeight() / 2);
     }
+
+    public Image getImage() {
+        return image;
+    }
 }
