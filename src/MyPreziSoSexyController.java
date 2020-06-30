@@ -98,19 +98,22 @@ public class MyPreziSoSexyController {
 
     @FXML
     void onSaveMenuItemPressed(ActionEvent event) {
-        String filepath = "D:\\CODE\\Java\\Java_Final_Project";
-        try {
-            File file = new File(filepath, "Iam.soSexy");
-            FileOutputStream fileOut = new FileOutputStream(file);
-            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-            objectOut.writeObject(workspace);
-            objectOut.close();
-            System.out.println("The Object  was succesfully written to a file");
+        MyXML.save(workspace.rootMyNode, "IAmSoSexy");
+        
+        
+        // String filepath = "D:/CODE\\Java\\Java_Final_Project";
+        // try {
+        //     File file = new File(filepath, "Iam.soSexy");
+        //     FileOutputStream fileOut = new FileOutputStream(file);
+        //     ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+        //     objectOut.writeObject(workspace);
+        //     objectOut.close();
+        //     System.out.println("The Object  was succesfully written to a file");
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            System.out.println("So sexy.");
-        }
+        // } catch (Exception ex) {
+        //     ex.printStackTrace();
+        //     System.out.println("So sexy.");
+        // }
     }
 
     @FXML

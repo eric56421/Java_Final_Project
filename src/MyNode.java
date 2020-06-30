@@ -1,18 +1,13 @@
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.image.*;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.control.*;
-import javafx.scene.Node;
-import javafx.scene.SnapshotParameters;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -23,7 +18,7 @@ public class MyNode implements Cloneable {
     public MyNode parentNode;
     public Pane pane;
     public FlowPane flowPane;
-    public ImageView thumbnail,thumbnail2;
+    public ImageView thumbnail;
     public MyThumbnail myThumbnail;
 
     public MyNode(Pane p) {
@@ -97,5 +92,13 @@ public class MyNode implements Cloneable {
 
     public MyThumbnail getMyThumbnail() {
         return myThumbnail;
+    }
+
+    public int getMyWidgetsLength() {
+        return myWidgets.size();
+    }
+
+    public ArrayList<MyWidget> getMyWidgets() {
+        return myWidgets;
     }
 }
