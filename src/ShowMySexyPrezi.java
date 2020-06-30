@@ -6,6 +6,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.Pane;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.image.ImageView;
 
 import javafx.animation.ScaleTransition;
 import javafx.animation.SequentialTransition;
@@ -30,13 +32,20 @@ public class ShowMySexyPrezi {
     private double windowHeight;
     public Pane pane;
     private ArrayList<ShowNode> slides;
+    private ArrayList<Integer> slideDir;
     private int iterator = 0;
 
     public ShowMySexyPrezi(MyNode rootMyNode) {
         this.rootMyNode = rootMyNode;
         slides = new ArrayList<ShowNode>();
+        slideDir = new ArrayList<Integer>();
 
         constructTree(rootMyNode, 1, 1, 1);
+        System.out.println("len: " + slides.size());
+        for (int i = 0; i < slideDir.size(); i++) {
+            System.out.print(slideDir.get(i));
+        }
+        System.out.println(" Breaking~");
 
         // --- new a window ---
         windowWidth = Screen.getPrimary().getBounds().getWidth();
@@ -82,11 +91,9 @@ public class ShowMySexyPrezi {
     }
 
     public void gotoNextNode() {
-        switch (slides.get(iterator).dir) {
+        switch (slideDir.get(iterator)) {
             case 1: // to child
-                System.out.println("iterator" + iterator);
                 zoomInChildnode(slides.get(iterator), slides.get(++iterator));
-                System.out.println("++iterator" + iterator);
                 break;
             case 2: // to parent
                 zoomOutChildnode(slides.get(iterator), slides.get(++iterator));
@@ -100,7 +107,7 @@ public class ShowMySexyPrezi {
                 gotoNextNode();
                 break;
             case 5:
-                slides.get(iterator).setDir(6);
+                slideDir.set(iterator, 6);
                 break;
             case 6:
                 showWindow.close();
@@ -119,24 +126,24 @@ public class ShowMySexyPrezi {
         translateTransition.setFromY(0);
         translateTransition.setToX(toNode.destX);
         translateTransition.setToY(toNode.destY);
-        System.out.println("from show mode: x = " + toNode.destX + " y = " + toNode.destY);
-        System.out.println("f = " + toNode.f);
-        // translateTransition.setInterpolator(Interpolator.EASE_IN);
+        translateTransition.setInterpolator(Interpolator.EASE_IN);
 
         ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(1));
         scaleTransition.setByX(toNode.f - 1);
         scaleTransition.setByY(toNode.f - 1);
         scaleTransition.setCycleCount(1);
-        // scaleTransition.setInterpolator(Interpolator.EASE_IN);
+        scaleTransition.setInterpolator(Interpolator.EASE_IN);
 
-        System.out.println("Before" + fromNode.slide.getScaleX());
         ParallelTransition pt = new ParallelTransition(fromNode.slide, scaleTransition, translateTransition);
         pt.play();
-        System.out.println("After" + fromNode.slide.getScaleX());
 
         pt.setOnFinished(e -> {
+            ImageView bk = new ImageView();
+            bk.setImage(pane.snapshot(new SnapshotParameters(), null));
             pane.getChildren().remove(0);
+            pane.getChildren().add(bk);
             pane.getChildren().add(toNode.slide);
+            System.out.println("parent node : " + toNode.slide);
         });
     }
 
@@ -145,20 +152,23 @@ public class ShowMySexyPrezi {
         pane.getChildren().addAll(toNode.slide);
 
         TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(1));
-        translateTransition.setFromX(toNode.destX);
-        translateTransition.setFromY(toNode.destY);
+        translateTransition.setFromX(fromNode.destX);
+        translateTransition.setFromY(fromNode.destY);
         translateTransition.setToX(0);
         translateTransition.setToY(0);
         translateTransition.setInterpolator(Interpolator.EASE_IN);
 
         ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(1));
-        scaleTransition.setByX(-toNode.f + 1);
-        scaleTransition.setByY(-toNode.f + 1);
+        // scaleTransition.setByX(0);
+        // scaleTransition.setByY(0);
+        scaleTransition.setByX(-fromNode.f + 1);
+        scaleTransition.setByY(-fromNode.f + 1);
         scaleTransition.setCycleCount(1);
         scaleTransition.setInterpolator(Interpolator.EASE_IN);
 
         ParallelTransition pt = new ParallelTransition(toNode.slide, scaleTransition, translateTransition);
         pt.play();
+        System.out.println("child goto node : " + fromNode.slide);
     }
 
     public void show() {
@@ -170,11 +180,14 @@ public class ShowMySexyPrezi {
     private void constructTree(MyNode currNode, double f, double destX, double destY) {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         if (currNode.childNodes.size() == 0) {
-            slides.add(new ShowNode(currNode.getMyThumbnail().getThumbnail(), 4, f, destX, destY));
+            slides.add(new ShowNode(currNode.getMyThumbnail().getThumbnail(), 2, f, destX, destY));
+            slideDir.add(2);
             return;
         }
 
-        slides.add(new ShowNode(currNode.getMyThumbnail().getThumbnail(), 1, f, destX, destY));
+        ShowNode thisNode = new ShowNode(currNode.getMyThumbnail().getThumbnail(), 1, f, destX, destY);
+        slides.add(thisNode);
+        slideDir.add(1);
         for (MyNode childNode : currNode.childNodes) {
             // f, destX, destY
             MyThumbnail target = childNode.getMyThumbnail();
@@ -189,18 +202,15 @@ public class ShowMySexyPrezi {
                     - target.getThumbnail().getBoundsInParent().getHeight()) / 2 - thumbnailY) * tmpF1;
 
             constructTree(childNode, tmpF, tmpDestX, tmpDestY);
-            slides.add(new ShowNode(currNode.getMyThumbnail().getThumbnail(), 1, f, destX, destY));
+            slides.add(thisNode);
+            slideDir.add(1);
         }
 
         if (currNode != rootMyNode)
-            slides.get(slides.size() - 1).setDir(2);
+            slideDir.set(slideDir.size() - 1, 2);
         else
-            slides.get(slides.size() - 1).setDir(5);
+            slideDir.set(slideDir.size() - 1, 5);
 
-        for (ShowNode n : slides) {
-            System.out.print(n.dir);
-        }
-        System.out.println(" Breaking~");
     }
     // private void exitShow() {
 
