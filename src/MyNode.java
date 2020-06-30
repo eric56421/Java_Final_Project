@@ -27,8 +27,8 @@ public class MyNode implements Cloneable {
         // pane.setBackground(new Background(
         // new BackgroundImage(new Image("file:../img/default_background.jpg"), 0, 0, 0, 1)));
 
-        pane.setBackground(new Background(new BackgroundFill(Color.RED, null, null)));        
-
+        pane.setStyle("-fx-background-color: rgba(0, 100, 100, 0.5);");        
+        // glass.setStyle("-fx-background-color: transparent;");
         myWidgets = new ArrayList<MyWidget>();
         childNodes = new LinkedList<MyNode>();
         flowPane = new FlowPane();
