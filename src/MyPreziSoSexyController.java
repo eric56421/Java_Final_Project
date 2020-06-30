@@ -76,24 +76,25 @@ public class MyPreziSoSexyController {
 
     @FXML
     void onOpenMenuItemPressed(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
-        // fileChooser.getExtensionFilters().addAll(new ExtensionFilter);
-        File f = fileChooser.showOpenDialog(new Stage());
-        if (f != null) {
-            try {
+        workspace.rootMyNode = MyXML.load("D:/", "IAmSoSexy");
+        // FileChooser fileChooser = new FileChooser();
+        // // fileChooser.getExtensionFilters().addAll(new ExtensionFilter);
+        // File f = fileChooser.showOpenDialog(new Stage());
+        // if (f != null) {
+        //     try {
 
-                FileInputStream fileIn = new FileInputStream(f);
-                ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+        //         FileInputStream fileIn = new FileInputStream(f);
+        //         ObjectInputStream objectIn = new ObjectInputStream(fileIn);
 
-                workspace = (MyPreziSoSexy) objectIn.readObject();
+        //         workspace = (MyPreziSoSexy) objectIn.readObject();
 
-                System.out.println("The Object has been read from the file");
-                objectIn.close();
+        //         System.out.println("The Object has been read from the file");
+        //         objectIn.close();
 
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
+        //     } catch (Exception ex) {
+        //         ex.printStackTrace();
+        //     }
+        // }
     }
 
     @FXML

@@ -53,6 +53,7 @@ public class MyPreziSoSexy implements Serializable {
     public ScrollPane scrollPane;
     public VBox vBox;
     public ButtonBar buttonBar;
+    public Pane p;
 
     double mouseAnchorX = 0, mouseAnchorY = 0;
     double translateAnchorX = 0, translateAnchorY = 0;
@@ -67,7 +68,7 @@ public class MyPreziSoSexy implements Serializable {
         this.scrollPane = sp;
         this.buttonBar = bB;
 
-        Pane p = new Pane();
+        p = new Pane();
         rootMyNode = new MyNode(p);
         setupRootPane(p);
         rootMyNode.pane = p;

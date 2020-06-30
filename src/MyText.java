@@ -135,4 +135,9 @@ public class MyText extends MyWidget {
         textArea.setLayoutY(y);
     }
 
+    @Override
+    public Node getComponent() {
+        return textArea;
+    }
+
 }
