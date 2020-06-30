@@ -18,6 +18,10 @@ public class TestDOM4JParse {
             List<Element> childsAll = rootElement.elements(); // get all elements
             Element child = rootElement.element("widgets");  // get subelement with the tag
             List<Element> childs = rootElement.elements("widgets");  // get all subelements with the tag
+            List<Element> test = rootElement.element("childNodes").elements();
+            for (Element element : test) {
+                System.out.println("hi");
+            }
 
             System.out.println("ALL elements");
             for (Element element : childsAll) {

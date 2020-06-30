@@ -46,7 +46,7 @@ public class MyPreziSoSexy implements Serializable {
     public MyNode rootMyNode;
 
     // need to add a function that switch currMyNode;
-    private MyNode currMyNode;
+    public MyNode currMyNode;
 
     public BorderPane rightBorderPane;
     public Pane middlePane;
@@ -54,6 +54,7 @@ public class MyPreziSoSexy implements Serializable {
     public ScrollPane scrollPane;
     public VBox vBox;
     public ButtonBar buttonBar;
+    public Pane p;
 
     double mouseAnchorX = 0, mouseAnchorY = 0;
     double translateAnchorX = 0, translateAnchorY = 0;
@@ -68,7 +69,7 @@ public class MyPreziSoSexy implements Serializable {
         this.scrollPane = sp;
         this.buttonBar = bB;
 
-        Pane p = new Pane();
+        p = new Pane();
         rootMyNode = new MyNode(p);
         setupRootPane(p);
         rootMyNode.pane = p;
@@ -80,6 +81,15 @@ public class MyPreziSoSexy implements Serializable {
         scrollPane.setContent(vBox);
         middlePane.getChildren().add(currMyNode.pane);
         // clipChildren(middlePane);
+    }
+
+    public void setAfterLoad() {
+        currMyNode = rootMyNode;
+        currMyNode.flowPane.setPrefWidth(scrollPane.getPrefWidth());
+
+        vBox.getChildren().addAll(currMyNode.flowPane);
+        scrollPane.setContent(vBox);
+        middlePane.getChildren().add(currMyNode.pane);
     }
 
     public void setupRootPane(Pane rp) {

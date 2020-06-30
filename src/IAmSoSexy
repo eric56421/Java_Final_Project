@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<rootMyNode>
+  <MyWidgets num="1">
+    <MyImage>
+      <url>1.jpg</url>
+      <width>1920.0</width>
+      <height>1080.0</height>
+      <layoutx>139.19998931884788</layoutx>
+      <layouty>63.99999313354499</layouty>
+    </MyImage>
+  </MyWidgets>
+  <childNodes num="0"/>
+</rootMyNode>

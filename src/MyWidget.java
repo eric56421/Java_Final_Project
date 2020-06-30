@@ -32,7 +32,7 @@ import javafx.scene.image.ImageView;
  * There is defaultListener and it works only with Canvas nad Rectangle
  */
 
-public class MyWidget {
+public abstract class MyWidget {
     public interface OnDragResizeEventListener {
         void onDrag(Node node, double x, double y, double h, double w);
 
@@ -381,4 +381,6 @@ public class MyWidget {
     private double nodeH() {
         return node.getBoundsInParent().getHeight();
     }
+
+    public abstract Node getComponent();
 }

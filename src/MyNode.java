@@ -53,7 +53,7 @@ public class MyNode implements Cloneable {
 
     public void addChildNode(Pane p) { // need to give a pane with a shape
         MyNode tmpChildNode = new MyNode(p);
-        
+        // System.out.println("Node: " + tmpChildNode);
         childNodes.add(tmpChildNode);
         tmpChildNode.parentNode = this;
 
@@ -100,5 +100,10 @@ public class MyNode implements Cloneable {
 
     public ArrayList<MyWidget> getMyWidgets() {
         return myWidgets;
+    }
+
+    public void addMyWidget(MyWidget myWidget) {
+        myWidgets.add(myWidget);
+        pane.getChildren().addAll(myWidget.getComponent());
     }
 }

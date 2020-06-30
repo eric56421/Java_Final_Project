@@ -1,4 +1,5 @@
 import javafx.scene.image.ImageView;
+import javafx.scene.Node;
 
 public class MyThumbnail extends MyWidget {
     private ImageView thumbnail;
@@ -13,6 +14,11 @@ public class MyThumbnail extends MyWidget {
     }
 
     public ImageView getThumbnail() {
+        return thumbnail;
+    }
+
+    @Override
+    public Node getComponent() {
         return thumbnail;
     }
 }
