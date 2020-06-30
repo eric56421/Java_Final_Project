@@ -16,6 +16,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.ParallelTransition;
 import javafx.animation.PathTransition;
 import javafx.util.Duration;
+import javafx.geometry.Rectangle2D;
 
 import java.util.ArrayList;
 import java.util.Stack;
@@ -34,9 +35,9 @@ public class ShowMySexyPrezi {
     public ShowMySexyPrezi(MyNode rootMyNode) {
         this.rootMyNode = rootMyNode;
         slides = new ArrayList<ShowNode>();
-        
+
         constructTree(rootMyNode, 1, 1, 1);
-        
+
         // --- new a window ---
         windowWidth = Screen.getPrimary().getBounds().getWidth();
         windowHeight = Screen.getPrimary().getBounds().getHeight();
@@ -96,7 +97,7 @@ public class ShowMySexyPrezi {
                 break;
             case 4: // to parent transient
                 zoomOutChildnode(slides.get(iterator), slides.get(++iterator));
-                gotoNextNode();                
+                gotoNextNode();
                 break;
             case 5:
                 slides.get(iterator).setDir(6);
@@ -165,8 +166,9 @@ public class ShowMySexyPrezi {
         return;
     }
 
-    // 1->to child;  2-> to parent; 3 -> to child transient; 4-> to parent transient
+    // 1->to child; 2-> to parent; 3 -> to child transient; 4-> to parent transient
     private void constructTree(MyNode currNode, double f, double destX, double destY) {
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         if (currNode.childNodes.size() == 0) {
             slides.add(new ShowNode(currNode.getMyThumbnail().getThumbnail(), 4, f, destX, destY));
             return;
@@ -178,22 +180,23 @@ public class ShowMySexyPrezi {
             MyThumbnail target = childNode.getMyThumbnail();
             double tmpF = (currNode.pane.getBoundsInParent().getHeight()
                     / target.getThumbnail().getBoundsInParent().getHeight());
+            double tmpF1 = (primaryScreenBounds.getHeight() / target.getThumbnail().getBoundsInParent().getHeight());
             double thumbnailX = target.getThumbnail().getLayoutX();
             double thumbnailY = target.getThumbnail().getLayoutY();
             double tmpDestX = ((currNode.pane.getBoundsInParent().getWidth()
-                    - target.getThumbnail().getBoundsInParent().getWidth()) / 2 - thumbnailX) * tmpF;
+                    - target.getThumbnail().getBoundsInParent().getWidth()) / 2 - thumbnailX) * tmpF1;
             double tmpDestY = ((currNode.pane.getBoundsInParent().getHeight()
-                    - target.getThumbnail().getBoundsInParent().getHeight()) / 2 - thumbnailY) * tmpF;
+                    - target.getThumbnail().getBoundsInParent().getHeight()) / 2 - thumbnailY) * tmpF1;
 
             constructTree(childNode, tmpF, tmpDestX, tmpDestY);
             slides.add(new ShowNode(currNode.getMyThumbnail().getThumbnail(), 1, f, destX, destY));
         }
 
         if (currNode != rootMyNode)
-            slides.get(slides.size()-1).setDir(2);
+            slides.get(slides.size() - 1).setDir(2);
         else
-            slides.get(slides.size()-1).setDir(5);
-        
+            slides.get(slides.size() - 1).setDir(5);
+
         for (ShowNode n : slides) {
             System.out.print(n.dir);
         }
