@@ -82,6 +82,15 @@ public class MyPreziSoSexy implements Serializable {
         // clipChildren(middlePane);
     }
 
+    public void setAfterLoad() {
+        currMyNode = rootMyNode;
+        currMyNode.flowPane.setPrefWidth(scrollPane.getPrefWidth());
+
+        vBox.getChildren().addAll(currMyNode.flowPane);
+        scrollPane.setContent(vBox);
+        middlePane.getChildren().add(currMyNode.pane);
+    }
+
     public void setupRootPane(Pane rp) {
         ImageView iv = new ImageView("file:../img/defult_background.jpg");
         iv.setSmooth(true);

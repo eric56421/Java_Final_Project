@@ -1,44 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <rootMyNode>
-  <MyWidgets num="0"/>
-  <childNodes num="2">
-    <childNode>
-      <MyNode>
-        <width>191.0</width>
-        <height>107.35283660888672</height>
-        <layoutx>428.0000120162963</layoutx>
-        <layouty>64.8000015377998</layouty>
-        <translatex>0.0</translatex>
-        <translatey>0.0</translatey>
-      </MyNode>
-      <MyWidgets num="0"/>
-      <childNodes num="1">
-        <childNode>
-          <MyNode>
-            <width>464.7999954223633</width>
-            <height>270.40000305175784</height>
-            <layoutx>99.20000457763672</layoutx>
-            <layouty>71.19999694824219</layouty>
-            <translatex>0.0</translatex>
-            <translatey>0.0</translatey>
-          </MyNode>
-          <MyWidgets num="0"/>
-          <childNodes num="0"/>
-        </childNode>
-      </childNodes>
-    </childNode>
-    <childNode>
-      <MyNode>
-        <width>191.0</width>
-        <height>107.35283660888672</height>
-        <layoutx>144.79999427795423</layoutx>
-        <layouty>279.1999919891358</layouty>
-        <translatex>0.0</translatex>
-        <translatey>0.0</translatey>
-      </MyNode>
-      <MyWidgets num="0"/>
-      <childNodes num="0"/>
-    </childNode>
-  </childNodes>
+  <MyWidgets num="1">
+    <MyImage>
+      <url>1.jpg</url>
+      <width>1920.0</width>
+      <height>1080.0</height>
+      <layoutx>139.19998931884788</layoutx>
+      <layouty>63.99999313354499</layouty>
+    </MyImage>
+  </MyWidgets>
+  <childNodes num="0"/>
 </rootMyNode>

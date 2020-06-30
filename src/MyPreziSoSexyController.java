@@ -77,6 +77,9 @@ public class MyPreziSoSexyController {
     @FXML
     void onOpenMenuItemPressed(ActionEvent event) {
         workspace.rootMyNode = MyXML.load("D:/", "IAmSoSexy", workspace);
+        workspace.setupRootPane(workspace.rootMyNode.pane);
+        workspace.currMyNode = workspace.rootMyNode;
+        workspace.setAfterLoad();
         // FileChooser fileChooser = new FileChooser();
         // // fileChooser.getExtensionFilters().addAll(new ExtensionFilter);
         // File f = fileChooser.showOpenDialog(new Stage());

@@ -140,23 +140,28 @@ public class MyXML {
     private static void addChildNodesFromXML(MyPreziSoSexy workspace, Element childNodesElement, MyNode myNode) {
         List<Element> childNodesElements = childNodesElement.elements();
 
+        workspace.currMyNode = myNode;
         System.out.println(childNodesElement.attribute("num"));
         for (Element childNodeElement : childNodesElements) {
             workspace.addChildMyNode();
 
-            MyNode childNode = myNode.childNodes.getLast();
-            // System.out.println("From XML:" + childNode);
+            if (!myNode.childNodes.isEmpty()) {
+                MyNode childNode;
+                childNode = myNode.childNodes.getLast();
+                // System.out.println("From XML:" + childNode);
 
-            addMyWidgetsFromXML(childNodeElement.element("MyWidgets"), childNode);
-            addChildNodesFromXML(workspace, childNodeElement.element("childNodes"), childNode);
+                addMyWidgetsFromXML(childNodeElement.element("MyWidgets"), childNode);
+                addChildNodesFromXML(workspace, childNodeElement.element("childNodes"), childNode);
+                
+                Element myNodeElement = childNodeElement.element("MyNode");
+                ImageView myThumbnail = childNode.getMyThumbnail().getThumbnail();
+                myThumbnail.setFitWidth(Double.parseDouble(myNodeElement.element("width").getText()));
+                myThumbnail.setFitHeight(Double.parseDouble(myNodeElement.element("height").getText()));
+                myThumbnail.setLayoutX(Double.parseDouble(myNodeElement.element("layoutx").getText()));
+                myThumbnail.setLayoutY(Double.parseDouble(myNodeElement.element("layouty").getText()));
+                // fix thumbnail
+            }
 
-            Element myNodeElement = childNodeElement.element("MyNode");
-            ImageView myThumbnail = childNode.getMyThumbnail().getThumbnail();
-            myThumbnail.setFitWidth(Double.parseDouble(myNodeElement.element("width").getText()));
-            myThumbnail.setFitHeight(Double.parseDouble(myNodeElement.element("height").getText()));
-            myThumbnail.setLayoutX(Double.parseDouble(myNodeElement.element("layoutx").getText()));
-            myThumbnail.setLayoutY(Double.parseDouble(myNodeElement.element("layouty").getText()));
-            // fix thumbnail
         }
     }
 }
